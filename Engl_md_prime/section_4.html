@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG &#8212; Data Structures and Algorithms. Hybrid approach (DRAKON + GOLANG)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Engl_md_prime/section_4';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    DATA STRUCTURES AND ALGORITHMS HYBRID IMPLEMENTATION (DRAKON + GOLANG)
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_1.html">SECTION 1. ABSTRACT DATA TYPES (ADT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_2.html">SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_3.html">SECTION 3. DRAKON - VISUAL ALGORITHMIC LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_4.html">SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_5.html">SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_6.html">SECTION 6. BASIC SORTING ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_7.html">SECTION 7. BASIC SEARCH ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_8.html">SECTION 8. BINARY TREE ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_9.html">SECTION 9. BASIC GRAPHES ALGORITHMS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git/issues/new?title=Issue%20on%20page%20%2FEngl_md_prime/section_4.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Engl_md_prime/section_4.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structuring-features">4.1. Data Structuring Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-data-structures">4.2. Linear data structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-direct-access-structures">4.2.1 Linear direct access structures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-sequential-access-structures">4.3. Linear sequential access structures</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="section-4-implementation-of-basic-abstract-data-types-in-golang">
+<h1>SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG<a class="headerlink" href="#section-4-implementation-of-basic-abstract-data-types-in-golang" title="Permalink to this heading">#</a></h1>
+<div class="section" id="data-structuring-features">
+<h2>4.1. Data Structuring Features<a class="headerlink" href="#data-structuring-features" title="Permalink to this heading">#</a></h2>
+<p>Recall - the abstract data type is a mathematical data model and various operators defined within this model.
+Data processing algorithms can be developed in terms of ATD, but to
+implement them in a particular programming language, it is necessary to find a way to represent ATD in terms of the data types and operators (methods) supported by this programming language.</p>
+<p>In practical terms, the data structure is a collection of data
+structured in such a way as to ensure their efficient use by users. This requires a certain ordering of data, primarily at the level of storage in computer memory. Reducing space and increasing its organization in conjunction with reducing the time complexity of different tasks is the main objective of working with data structures.</p>
+<p>Considerable experience in the development of computer technology and computing technology has made it possible to classify data structures into different categories. First, simple and integrated structures are distinguished by complexity. The criterion of simplicity is the indivisibility of this, that is, in a computer implementation - a simple chain of bits. Simple, basic structures include variables of different types: integers, real numbers, logical, string.</p>
+<p>Integrated (composite, complex) are data structures whose component
+parts are other data structures, including simple and integrated. Many basic integrated data structures are predefined by a specific
+programming language: arrays, slices, structures, etc. Such structures can be created by users for a specific problem, using basic integrated structures.</p>
+<p>By way of presentation, the data structures are divided into logical and physical. The logical structure is an abstract data layout that the user or programmer envisions. Physical structure is a method (schema) of specific data placement in the memory of a computer. In general, the logical and physical structures of the same data do not coincide. In a logical (abstract) structure, data tend to be adjacent to each other, while in a computer implementation these data may be located in different memory regions.</p>
+<p>An important feature of the data structure is the existence of links
+between the elements of the structure. On this basis, disconnected and connected are distinguished. Disconnected structures are characterized by a lack of linkages between the elements of the structure, while connected structures are characterized by linkages. Disjoint structures include arrays, strings, stacks, queues, and connected lists.
+In many cases, data can be characterized by variability, i.e., a change in the number of elements and (or) the relationships between elements of the structure. <em>Arrays, sets, records, tables</em> are under the category of <em>static data</em>, <em>stacks, queues, trees</em> - under the category of semi <em>static data</em>,<em>linked lists and graphs</em> - under the category of <em>dynamic data</em>.</p>
+<p>Linear and non-linear data structures are distinguished in structure
+order. Linear structures are divided into structures with sequential
+distribution of elements in memory (<em>vectors, strings, arrays, stacks, queues</em>) and structures with arbitrary connected distribution of elements in memory, depending on the nature of the reciprocal arrangement of elements in memory (simply connected and doubly connected linear lists). Nonlinear structures are <em>multi-linked lists, trees, graphs</em>.</p>
+<p>One of the defining features of data structures is how to access data. In the access method, a search mechanism is important - an algorithm that determines the access path that is possible within a given memory structure, and the number of steps along that path to find the data sought. There are two main groups of data access methods: <em>sequential</em> and <em>direct</em>.</p>
+<p><em>Sequential access</em> means that a group of elements is accessed in a
+predefined ordered sequence. An example of sequential access is <em>single linked list</em>. The various elements of the data structure are directly accessed by providing a unique address for these elements.</p>
+<p>Finally, one characteristic of data structures is homogeneity.
+Homogeneous are structures that contain a set of simple data of the same
+type (numeric, logical, string, etc.). Heterogeneous structures combine
+data of different types. Examples of homogeneous structures are arrays,
+slices, stacks. These structures include records and sets.</p>
+<p>The presence of a large number of features of data structures
+predetermined various attempts to classify them. From a programming
+point of view, the main features are: linearity/non-linearity, data
+access, homogeneity/heterogeneity of data. This section covers the
+Go-implementation of linear abstract data such as array/slice, map,
+linked lists, stacks, and queues.</p>
+</div>
+<div class="section" id="linear-data-structures">
+<h2>4.2. Linear data structures<a class="headerlink" href="#linear-data-structures" title="Permalink to this heading">#</a></h2>
+<p>In the realm of Information Technology, linear data structures are characterized by a sequential arrangement of data elements. The distinguishing factors of these structures lie in the method of accessing individual elements within a data set and the uniformity of the data, which can be either homogeneous or heterogeneous.</p>
+<div class="section" id="linear-direct-access-structures">
+<h3>4.2.1 Linear direct access structures<a class="headerlink" href="#linear-direct-access-structures" title="Permalink to this heading">#</a></h3>
+<p>The basic linear direct access structures are homogeneous (<em>arrays</em> and <em>slices</em>) and heterogeneous (<em>linked lists, stacks, queues</em>).</p>
+<p>a) Array</p>
+<p>An array is a collection of data, belonging to the same type. For
+example, the collection of integers 24, 12, 36, 6, 47, 11 forms an array (Figure. 4.1.).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_1_Array.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_1_Array.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_1_Array.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 4.1. One-dimensional array</p>
+<p>It is not allowed to mix values of different types, such as an array
+containing both characters and integers. There are different ways to
+declare arrays:
+<em>var array_name[]Type</em></p>
+<p>or</p>
+<p><em>var array_name[length]Typle{item1, item2, item3, …itemN}</em></p>
+<p>In addition, in the language Go arrays can be declared in the
+shortened form: <em>array_name:= [length]Type{item1, item2,
+item3,…itemN}</em></p>
+<p>In Go, you can create a multidimensional array using the following
+syntax: <em>array_name[Length1][Length2]..[LengthN]Type</em></p>
+<p>However, array data is rarely used in Go. Much more convenient is a
+collection of data like a <em>slice</em>.</p>
+<p>b) Slice</p>
+<p>A slice is a variable-length data collection that stores elements of a homogeneous type. A slice can be thought of as a slice of an array. Slice syntax (T - type) of data:
+[]T or []T{} or []T{value1, value2, value3, …valuen}</p>
+<p>A slice has three components: <em>pointer, length</em>, and <em>capacity</em>. To create a slice in this form, use the <em>make</em> function. For example, in Figure 4.2. creating a parentSlice looks like this: <em>parentSlice = make([]int, 20, 20</em>)</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_2_Slice.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_2_Slice.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_2_Slice.jpg" style="width: 400px;" /></a>
+ <p style="text-align: center;">Figure 4.2. Create different slices of *SliceA* and *SliceB*</p>
+<p><em>The pointer</em> indicates to the first item of the array accessible
+through the slice (which is not necessarily the same as the first item
+of the array). Length is the number of slice elements; it cannot exceed
+the capacity, which is typically the number of items between the start
+of the slice and the end of the underlying array. These values are
+returned by the built-in functions <em>len</em> and <em>cap</em>. Multiple slices can
+be created from a single array with different pointer, length, and
+capacity values. In Figure 4.2. the primary slice/array <em>parentSlice</em> is
+shown, on the basis of which two slices of different lengths are
+created, starting from different places. To do this, use the notation
+<em>sliceA := parentSlice[:5]</em> and s<em>liceB := parentSlice[12:15]</em>.
+Here, the capacity of <em>SliceA</em> is 20 and <em>sliceB</em> is 8 because Go
+defines this value as the difference between the length of the primary
+array (20) and the index of the first item of <em>Slice B</em> (12).</p>
+<p>The following functions are used for work with slices: 1. The built-in
+<em>append()</em> function is used to add elements to the slice. If the basic
+slice size is insufficient, a new slice is automatically created and the
+old slice is copied. 2. The <em>len()</em> function returns the number of
+elements present in the slice. 3. The <em>cap()</em> function returns the
+capacity of the base slice. 4. <em>Copy(),</em> the content of the original
+slice, is copied to a slice of the destination.</p>
+<p>c) Structure</p>
+<p>Golang supports data collections as structures consisting of a set of
+multiple data types (fields) represented as a single entity. In Golang
+the structure is implemented with the help of data type Struct:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>package main
+import (
+    &quot;fmt&quot;
+)
+
+type Employee struct {
+firstName string
+lastName string
+age int
+salary int
+}
+
+func main() {
+// creating a structure with specifying field
+emp1 := Employee{
+firstName: &quot;Peter&quot;, age: 35, salary: 20000, lastName: \&quot;Wolf\&quot;,
+}
+// creating a structure without specifying field names
+emp2 := Employee{\&quot;Nick\&quot;, \&quot;Smith\&quot;, 49, 35000, }
+fmt.Println(\&quot;Employee 1\&quot;, emp1)
+fmt.Println(\&quot;Employee 2\&quot;, emp2)
+}
+
+Output.
+Employee 1 {Peter Wolf 35 20000}
+Employee 2 {Nick Smith49 35000}
+</pre></div>
+</div>
+<p><em>Note</em>. When you type the order of the fields on the monitor <em>(emp1)</em>, it is not necessary to match the order when you create the structure. In the second case of creating a <em>structure (emp2)</em> the order must coincide.</p>
+<p>Golang allows to create pointers to a structure.</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>package main
+import (
+    &quot;fmt&quot;
+)
+
+type Employee struct {
+firstName string
+lastName string
+age int
+salary int
+}
+
+func main() {
+emp3 := &amp;Employee{
+firstName: \&quot;Sam\&quot;,
+lastName: \&quot;Shaffer\&quot;,
+age: 55,
+salary: 22000,
+}
+
+fmt.Println(\&quot;First Name:\&quot;, (\*emp3).firstName)
+fmt.Println(\&quot;Age:\&quot;, (\*emp3).age)
+}
+
+ Output.
+First Name: Sam
+Age: 55
+</pre></div>
+</div>
+<p>d). Map</p>
+<p>Maps are collections that use unordered key-value pairs, where keys are
+unique identifiers associated with each value in the map. Maps are
+especially effective in data retrieval algorithms. Map keys can be of
+almost any type, unlike arrays and slices, which use sequences of
+numbers for keys. The type for keys and calculations in Go needs to be
+refined. To declare a map with keys of type string and values of type
+int, the following syntax is used:</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_0.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_0.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_0.jpg" style="width: 300px;" /></a>
+<p>A map can be created using the make:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">employeeAge</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+<span class="nx">employeeAge</span><span class="p">[</span><span class="s">&quot;P. Brown&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">45</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_Table.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_Table.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_Table.jpg" style="width: 400px;" /></a>
+<p>We will demonstrate various operations related to working with maps using a specific example. Our objective is to create a map containing data about employees and their ages (<em>employeeAge</em>).</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">employeeAge</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>We will demonstrate various operations related to working with maps using a specific example. Our objective is to create a map containing data about employees and their ages (<em>employeeAge</em>).</p>
+<p>Initialization of this map:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">employeeAge</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span>
+<span class="w">  </span><span class="s">&quot;P. Wolf&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span>
+<span class="w">  </span><span class="s">&quot;В. Smith&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Addition of a new entry:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">employeeAge</span><span class="p">[</span><span class="s">&quot;К. Tompson&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">34</span>
+</pre></div>
+</div>
+<p>Output to the monitor:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="p">[</span><span class="nx">S</span><span class="p">.</span><span class="w"> </span><span class="nx">Bondes</span><span class="p">:</span><span class="mi">34</span><span class="w"> </span><span class="nx">D</span><span class="p">.</span><span class="w"> </span><span class="nx">Levis</span><span class="p">:</span><span class="mi">47</span><span class="w"> </span><span class="nx">G</span><span class="p">.</span><span class="w"> </span><span class="nx">Ivens</span><span class="p">:</span><span class="mi">45</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The map can be created using the function <em>make</em>:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">employeeAge</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+<span class="nx">employeeAge</span><span class="p">[</span><span class="s">&quot;P. Peters&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">45</span>
+</pre></div>
+</div>
+<p>Other operations with the card.
+Key update:</p>
+<p>To get the value corresponding to the key:</p>
+<p>age := employeeAge[“К. Маркин”]</p>
+<p>Delete a key-value pair:</p>
+<p>delete(employeeSalary, “Tom”)</p>
+<p>To verify that the key exists:</p>
+<p>val, ok := mapName[key]</p>
+<p>If the key exists, the <em>variable val</em> will be the value of the key in
+<em>the map</em>, and the variable <em>ok</em> will be <em>true.</em> If the key does not
+exist, the <em>val</em> variable will receive a zero default value of type
+<em>value</em>, and the <em>ok</em> variable will be <em>false.</em></p>
+</div>
+</div>
+<div class="section" id="linear-sequential-access-structures">
+<h2>4.3. Linear sequential access structures<a class="headerlink" href="#linear-sequential-access-structures" title="Permalink to this heading">#</a></h2>
+<p>Sequential access to data means that only one element of the structure
+can be accessed at any given time, and the elements are accessed in a
+certain order. Classical examples of a sequential access structure are a
+singly linked list, a stack, and a queue.<em>.</em></p>
+<p><strong>а) Linked List</strong></p>
+<p>A linked list is a dynamic data structure, the elements of which are
+called nodes, consisting of two parts: content and reference. The
+content part for storing a data value can be one of the basic data
+types, such as an integer, a floating point number, a string, or some other data type. The reference part is a link that is used to store the address of the next element in the list.</p>
+<p>Linked lists find their way into many computing tasks, from organizing operating systems to creating playlists. In particular, they are useful when processing the file system: sometimes it is difficult to find disk space to hold the entire file, so it can break into scattered fragments.
+To organize work with these fragments, a linked list of sections is
+formed in which file fragments are stored on disk. In this they differ from arrays or slices, where all elements are located adjacent to each other.</p>
+<p>There are different types of linked lists. First of all, they differ in the number of fields (simply connected and biconnected lists) and in the way the elements are connected (linear and cyclic). In the simplest case of a simply connected list, each node (except for the last node) contains a link (pointer) to the next node of the same list. The reference part contains the address of the next node. The reference part of the last node contains the value nil (Figure 4.3).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_3_LL.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_3_LL.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_3_LL.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 4.3. Simply linked list structure</p>
+<p>The structure of an individual linked list node can be described by the struct data type as follows:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span><span class="o">*</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">data</span><span class="w"> </span><span class="kt">string</span>
+<span class="nx">nextNode</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The linked list structure contains the <em>list length</em>, <em>head node</em> and <em>tail node</em>:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">LinkedList</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">len</span><span class="w">      </span><span class="kt">int</span>
+<span class="nx">headNode</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The “len” field in the linked list structure contains its length. The “headNode” field stores the memory address of the header (the first node in the linked list). Initialization (instance creation) of a structure of type LinkedList is performed as follows:</p>
+<p><em>var ll LinkedList = LinkedList{}</em></p>
+<p>The Golang language provides the ability to implement various operations with linked lists, among which the main ones are:</p>
+<ul class="simple">
+<li><p>• inserting an element into the list;</p></li>
+<li><p>• removal of an element from the list;</p></li>
+<li><p>• search for an element in the list;</p></li>
+</ul>
+<p>Consider the operation of inserting an item into a linke dlist (Figure 4.4):</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_4_LL_new.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_4_LL_new.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_4_LL_new.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 4.4. Inserting a new node at the beginning (a) and at the end (b) of the linked list</p>
+<p>Three methods are used to insert new nodes: at the beginning of the
+list - <em>PushFront(val)</em>, at the end of the list - <em>PushBack(val)</em> and at
+the specified position <em>PushVal(nodeVal,val)</em>, where the val parameter
+is the value of the list element of one type or another (in the given
+string), <em>nodeVal</em> - the value of the list element after which the new
+node is inserted. Let us consider sequentially the algorithms of all
+three methods. Removing nodes implements the <em>RemoveVal(val)</em> method</p>
+<p>a)  Method <em>PushFront</em> – inserting a new node at the beginning of the
+list</p>
+<p>This method implements the process of inserting a new node at the top of
+the linked list. The algorithm of the method is presented in the form of
+DRAKON- diagram with the subsequent automatic generation of program code in the DRAKON WEB Editor (Figure 4.5).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_5_PF.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_5_PF.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_5_PF.jpg" style="width: 300px;" /></a>
+<p style="text-align: center;">Figure 4.5. DRAKON-diagram of rhe method *PushFront(val)*</p>
+<p>b)  The method <em>PushBack</em> – inserting a new node at the end of the list</p>
+<p>Inserting a new node at the end of a singly linked list is implemented
+using the <em>PushBack(val)</em> method. The algorithm for inserting a new node
+at the end of the list consists of the following steps. A new node
+<em>(newNode)</em> is created, to which a parameter <em>(val)</em> is passed. If the
+list is empty, then the new node will be both the first and the last
+node in the list. If the list is not empty, then all nodes are traversed
+to the end of the list and a new node is added to the end of the list. DRAKON-diagram of the method <em>PushBack(val)</em> is shown on Figure 4.6.</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_6_PB.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_6_PB.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_6_PB.jpg" style="width: 300px;" /></a>
+<p style="text-align: center;">Figure 4.6. DRAKON-diagram of node insertion algorithm to the linked list end</p>
+<p>c)  The method <em>PushVal(nodedata,val)</em> - insertion after specified node</p>
+<p>The third method <em>PushVal(nodeVal,val)</em> implements the process of
+inserting a new node with the <em>val</em> parameter after the node with the
+<em>nodeVal</em> value. The method algorithm first refers to the
+<em>NodeWithNode(nodeVal)</em> module, which defines the node after which the
+new node should be inserted. In our case, the word “probably” is
+inserted into the list created above after the node with the content
+“This”. The dragon diagram of such an insertion algorithm and the
+corresponding program code are shown in Figure 4.7.</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_7_2Diag.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_7_2Diag.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_7_2Diag.jpg" style="width: 500px;" /></a>
+<p style="text-align: center;">Figure 4.7. DRAKON-diagrams of node insertion algorithms NodeWithVal
+PushVal</p>
+<p>The basic methods of working with linked list nodes include methods for
+deleting one or more nodes or deleting nodes by condition. Consider the
+algorithm for deleting a node by a specifided value.</p>
+<p><strong>RemoveKey method (val) – remove the specified node</strong></p>
+<p>Removing a node from a linked list after the specified value (<em>k</em>) is performed using  the <em>RemoveVal(val)</em> method, the parameter of which is the   key <em>val</em>(the data field of the Node list node structure). To delete a list node with  the  key “val*, you must first locate the node. In this module,  the first node  (<em>ll.head.data == key</em> is checked first) and if the key matches the value of the <em>ll.head.data</em> field, then the address of the first node is replaced with the address of the next node, which becomes the main node (<em>ll.head.next</em>). Further in the loop, the node with the desired key is searched for and the nodes are shifted (Fig. 4.8).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_8_Rem.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_8_Rem.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_8_Rem.jpg" style="width: 300px;" /></a>
+<p style="text-align: center;">Figure 4.8. Illustration of removing a node from a list</p>
+<p>A Drakon-diagram of the algorithm for removing a node by value is shown in Figure 4.9.</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_9_RV.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_9_RV.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_9_RV.jpg" style="width: 500px;" /></a>
+<p style="text-align: center;">Figure 4.9. Drakon-diagram of removing a node from the RemoveVal list</p>
+<p>As an example, let’s create a list consisting of five nodes containing five values: <em>“Smith A.”, “Shafler B.”,”Wiley D.”, “Brown G.”, “Black H.”</em>.  To form a list,  you need to create the <em>Node{data, nextNode)</em> type, where <em>data</em> is the value, and <em>nextNode</em> is the address of the next node and the <em>LinkedList(len, headNode)</em> type, where <em>len</em> is the length of the list, and   <em>headNode</em>  - list header with type *<em>Node</em>.</p>
+<p>Next, in  the <em>main()</em> function, you need to initialize and create an instance  of the <em>linked List</em> and insert the first node (<em>header</em>) by calling the <em>PushFront(“Smith A.”)</em> method. Next, new nodes are inserted at the end of the list using the <em>PushBack()</em> method:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">ll</span><span class="w"> </span><span class="nx">LinkedList</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">LinkedList</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushFront</span><span class="p">(</span><span class="s">&quot;Smith A.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushBack</span><span class="p">(</span><span class="s">&quot;Shafler B.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushBack</span><span class="p">(</span><span class="s">&quot;Wiley D.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushBack</span><span class="p">(</span><span class="s">&quot;Brown G.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushBack</span><span class="p">(</span><span class="s">&quot;Black H.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, after the node with the value of <em>Brown G.</em> insert a node with the value <em>Singer L.</em> and delete the node with the <em>Black H.</em> value:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">ll</span><span class="p">.</span><span class="nx">PushVal</span><span class="p">(</span><span class="s">&quot;Brown G.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Singer L.&quot;</span><span class="p">)</span>
+<span class="nx">ll</span><span class="p">.</span><span class="nx">IterateList</span><span class="p">()</span>
+<span class="nx">ll</span><span class="p">.</span><span class="nx">RemoveVal</span><span class="p">(</span><span class="s">&quot;Black H.&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="nx">ll</span><span class="p">.</span><span class="nx">IterateList</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The results of processing list nodes are displayed on the monitor using the IterateList() method  (Figure 4.10.):</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_10_Search.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_10_Search.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_10_Search.jpg" style="width: 300px;" /></a>
+ <p style="text-align: center;">Figure 4.10. Dragon diagram of the *IterateList()* method</p>
+<p>In the presented program code, the elements of the list are data of the string type. In order for the program to work with lists whose elements are numbers (integer or real), it is necessary to  use the interface{}  signature instead of the  built-in string type</p>
+<p>Result:
+Linked list length = 5
+Completed list
+20 -&gt; 30 -&gt; 40 -&gt; 50 -&gt; 70 -&gt;
+Linked list length = 4
+Linked list after deleting a node with a value of 40:
+20 -&gt; 30 -&gt; 50 -&gt; 70 -&gt;
+}</p>
+<blockquote>
+<div><p><strong>b). Stack</strong></p>
+</div></blockquote>
+<p>A stack is an abstract data type that contains elements with two basic operations:<em>Push</em>, which adds an item to the collection, and <em>Pop</em>, which deletes the last item added. A media set of this type includes a set of all stacks that contain elements of type <em>T</em>, including an empty stack, a stack with one element of type <em>T</em>, a stack with two elements of type <em>T</em>, and so on. From a technological point of view, a stack is a memory, in which the values of the data are loaded and retrieved according to the <em>“last in - first out” (LIFO - Last-In-First-Out)</em> strategy. Data enters the stack  from only one side, called  the top of the stack (Figure 4.11.).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_11_Stack.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_11_Stack.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_11_Stack.jpg" style="width: 500px;" /></a>
+ <p style="text-align: center;">Figure 4.11. Last-in, first-out stack work</p>
+<p>A common illustration  of a stack is a stack of plates: only one plate is available at any given time - the one that is placed on the pile last, i.e., the top. In order to access an arbitrary plate inside the stack, you must first sequentially remove all the plates above it. The most common use of this structure is the implementation of the <em>“Undo Last Action”</em> operation in various editors (<em>Ctrl+Z</em>). There are other examples of data organization in a stack, such as using recursive function calls. Each function call address is stored on the stack and retrieved in reverse order.
+Before performing any operations on the stack, let’s look at how to programmatically create stacks in the Golang programming language. To create a stack, you can use a new type of Stack in the form of a slice:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Stack</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">data</span><span class="w"> </span><span class="p">[]</span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In this description interface{} it’s a special type in Golang that can represent values of any type. Thus, a slice data can contain elements of different types (for example, numbers or strings).
+According to the purpose of the stack, the main operations with its elements are the function  (method) of adding <em>Push(item)</em> and the function (method) of removing <em>Pop()</em>:</p>
+<p>Let’s take a look at the s.data = s.data[:len(s.data)-1]. This is the key line that removes the element from the stack. It works by modifying  the <em>s.data</em> slice to  exclude the last element. In Golang, slicers are dynamic, and you can resize them using  the <em>s.data[:n]</em> syntax, which returns the first  <em>n</em> elements of the slice. Here, <em>n</em> is equal  to <em>len(s.data)-1</em> , which means “all items except the last one”. In this way, the last item is removed from the stack.
+Suppose the members of a single stack instance are integer data: <em>10, 20, 30. 40</em>, and the other instance string data <em>“First”, “Second”, “Third”, “Fourth”</em>. Then, in  the <em>main()</em>  function, there are two instances of the stack of type Stack are created:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="nx">stack</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Stack</span><span class="p">{}</span>
+</pre></div>
+</div>
+<p>Three elements are added to the initially empty stack using the Push(item)  function:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>   stack.Push(&quot;First&quot;)
+   stack.Push(&quot;Second)
+   sack.Push(&quot;Third&quot;)
+</pre></div>
+</div>
+<p>Then remove one item at the top of the stack:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">stack</span><span class="p">.</span><span class="nx">Pop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>As a result of the specified operation, the output is displayed:
+Stack –&gt; [First Second Third]
+Stack after removing –&gt;  [First Second]</p>
+<p>According to the second approach, the new type is declared as a linked list in the form of a structure with two elements: the address of the head node (head):</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Stack</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">head</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In turn, the head struct member  is of type *Node,</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Node</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">data</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">next</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This means that, according to the concept of the Golang programming language,  the Stack  structure inherits the properties  of the Node structure.Then the <em>Push(val)</em> function  looks like this:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">Stack</span><span class="p">)</span><span class="w"> </span><span class="nx">Push</span><span class="p">(</span><span class="nx">val</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">newNode</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">data</span><span class="p">:</span><span class="w"> </span><span class="nx">val</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">:</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newNode</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>and the function to remove an element from  the <em>Pop()</em> stack is:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="nx">Stack</span><span class="p">)</span><span class="w"> </span><span class="nx">Pop</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">data</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">data</span>
+<span class="w">	</span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">next</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For this option, the main() function looks like:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">stack1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Stack</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">stack2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Stack</span><span class="p">{}</span>
+<span class="w">	</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="s">&quot;First&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="s">&quot;Second&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Push</span><span class="p">(</span><span class="s">&quot;Third&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;The top element integer value of the stack&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Peek</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Contents of an integer stack&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack1</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;The top element string value of the stack&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Peek</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Contents of an string stack&quot;</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">stack2</span><span class="p">.</span><span class="nx">Pop</span><span class="p">())</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>с). Queue</strong></p>
+</div></blockquote>
+<p><em>Queue</em> — it is a linear data structure that differs from the stack in the order in which the elements are deleted: the last added element is deleted in the stack; in the queue, on the contrary, the element added first is deleted (Figure 4.12).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_12_Queue.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_12_Queue.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im4/Fig4_12_Queue.jpg" style="width: 500px;" /></a>
+ <p style="text-align: center;">Figure 4.12. Работа структуры «очередь</p>
+<p>The data structure in the form of a queue finds its application in multitasking systems, in communication systems (networks with intermediate storage), in queuing networks. Queues play an important role in computing when resources are provided on a first-come, first-served basis, such as jobs sent to a printer or processes waiting for a processor in the operating system.
+The Queue abstract  data type  is defined as a class whose objects implement the FIFO or First-In-First-Out principle for the items that are added and removed. From the point of view of the concept of ATD, a queue is a container that contains values of a certain type. The media set of this data structure is the set of all queues that contain items of type T, including an empty queue. In order for the algorithm that implements the basic functions of the queue to work the same for all data types, the Golang language uses an empty interface (<em>interface{}</em>) that can contain values of any type. In the case of a queue, the new type is declared:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Queue</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">Enqueue</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span>
+<span class="w">    </span><span class="nx">Dequeue</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w">     </span>
+<span class="w">    </span><span class="nx">IsEmpty</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span><span class="w">            </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The set of basic operations supported by the queue includes:
+<em>Enqueue (item)</em> – add a single item to the end of the queue.
+<em>Dequeue ()</em> - remove a single item from the top of the queue.</p>
+<p>Queue creation is implemented in Golang either using a <em>slice</em> or a <em>linked list</em>. In the first case, to create a queue, enter the type in the form of a structure:
+В первом случае для</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">SliceQueue</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">queue</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following are the main methods related to the processing of queue elements - adding a new <em>Enqueue (item)</em> element to the end of the queue and removing the <em>Dequeue ()</em> element:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">*</span><span class="nx">SliceQueue</span><span class="p">)</span><span class="w"> </span><span class="nx">Enqueue</span><span class="p">(</span><span class="nx">item</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="p">,</span><span class="w"> </span><span class="nx">item</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">*</span><span class="nx">SliceQueue</span><span class="p">)</span><span class="w"> </span><span class="nx">Dequeue</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">temp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">    </span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">temp</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Additional method in relation to  the <em>Queue</em> structure  is the <em>IsEmpty()</em> method, which returns true in the case of an empty queue, <em>Size()</em>, which returns the length of the queue, and some others:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">*</span><span class="nx">SliceQueue</span><span class="p">)</span><span class="w"> </span><span class="nx">IsEmpty</span><span class="p">()</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">q</span><span class="p">.</span><span class="nx">queue</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Working  with the queue in the <em>main()</em>  function begins with creating two instances of a queue of  the <em>SliceQueue</em>  type with zero length:
+Working  with the queue in the <em>main()</em>  function begins with creating two instances of a queue of  the <em>SliceQueue</em>  type with zero length:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">queue1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SliceQueue</span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="nx">queue2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">SliceQueue</span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
+</pre></div>
+</div>
+<p>Next, we implement an illustration of the operation of two queue instances, the first for numeric data, the second - for string data.</p>
+<p>For integer data:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="nx">queue1</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue1</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue1</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue1</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For string data:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="nx">queue2</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="s">&quot;First&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue2</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="s">&quot;Second&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue2</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="s">&quot;Third&quot;</span><span class="p">)</span>
+<span class="w">     </span><span class="nx">queue2</span><span class="p">.</span><span class="nx">Enqueue</span><span class="p">(</span><span class="s">&quot;Fourth&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of the program code:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="nx">A</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">integers</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">been</span><span class="w"> </span><span class="nx">formed</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">queue</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span>
+<span class="nx">Result</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">queue1</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">10</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">20</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">3</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">30</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">40</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">5</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">50</span>
+<span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">queue</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">numbers</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">empty</span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">integers</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">been</span><span class="w"> </span><span class="nx">formed</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">queue</span><span class="p">:</span><span class="w"> </span><span class="nx">First</span><span class="p">,</span><span class="w"> </span><span class="nx">Second</span><span class="p">,</span><span class="w"> </span><span class="nx">Third</span><span class="p">,</span><span class="w"> </span><span class="nx">Fourth</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">First</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">2</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">Second</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">3</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">Third</span>
+<span class="nx">Output</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">Fourth</span>
+</pre></div>
+</div>
+<p>You can create a queue based on a linked list. To do this, a <em>Node</em> structure is created that contains a value of any type (<em>interface{}</em>) and a pointer (*<em>Node</em>) to the next node of the same type:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Node</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span>
+<span class="w">    </span><span class="nx">next</span><span class="w">  </span><span class="o">*</span><span class="nx">Node</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>A <em>Queue</em> structure is also created that contains pointers to the front and rear nodes of the queue, as well as a size variable to control the size of the queue:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Queue</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">front</span><span class="w"> </span><span class="o">*</span><span class="nx">Node</span>
+<span class="w">    </span><span class="nx">rear</span><span class="w">  </span><span class="o">*</span><span class="nx">Node</span>
+<span class="w">    </span><span class="nx">size</span><span class="w">  </span><span class="kt">int</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <em>Enqueue (val)</em>  method adds a new node with a value value to the end of the queue.  If the queue is empty (<em>size == 0</em>), then the new node is both a front node and a back node. Otherwise, a new  node is added to the back node, and the posterior node pointer is updated.</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">*</span><span class="nx">Queue</span><span class="p">)</span><span class="w"> </span><span class="nx">Enqueue</span><span class="p">(</span><span class="nx">value</span><span class="w"> </span><span class="kd">interface</span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">newNode</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">Node</span><span class="p">{</span><span class="nx">value</span><span class="p">:</span><span class="w"> </span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">next</span><span class="p">:</span><span class="w"> </span><span class="kc">nil</span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">q</span><span class="p">.</span><span class="nx">front</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newNode</span>
+<span class="w">        </span><span class="nx">q</span><span class="p">.</span><span class="nx">rear</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newNode</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nx">q</span><span class="p">.</span><span class="nx">rear</span><span class="p">.</span><span class="nx">next</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newNode</span>
+<span class="w">        </span><span class="nx">q</span><span class="p">.</span><span class="nx">rear</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">newNode</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">q</span><span class="p">.</span><span class="nx">size</span><span class="o">++</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <em>Dequeue</em> method deletes and returns the front queue node. If the queue is empty, nil is returned, if the queue is not empty, then the front pointer is updated to the next node and the queue size is reduced.</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">*</span><span class="nx">Queue</span><span class="p">)</span><span class="w"> </span><span class="nx">Dequeue</span><span class="p">()</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nx">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">front</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">    </span><span class="nx">q</span><span class="p">.</span><span class="nx">front</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">q</span><span class="p">.</span><span class="nx">front</span><span class="p">.</span><span class="nx">next</span>
+<span class="w">    </span><span class="nx">q</span><span class="p">.</span><span class="nx">size</span><span class="o">--</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">value</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Engl_md_prime"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-structuring-features">4.1. Data Structuring Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-data-structures">4.2. Linear data structures</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-direct-access-structures">4.2.1 Linear direct access structures</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-sequential-access-structures">4.3. Linear sequential access structures</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ivanov S.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

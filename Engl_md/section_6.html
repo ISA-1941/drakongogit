@@ -1,0 +1,979 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SECTION 6. BASIC SORTING ALGORITHMS &#8212; Data Structures and Algorithms. Hybrid approach (DRAKON + GOLANG)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Engl_md/section_6';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SECTION 7. BASIC SEARCH ALGORITHMS" href="section_7.html" />
+    <link rel="prev" title="SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM" href="section_5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    DATA STRUCTURES AND ALGORITHMS HYBRID IMPLEMENTATION (DRAKON + GOLANG)
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="section_1.html">SECTION 1. ABSTRACT DATA TYPES (ADT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_2.html">SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_3.html">SECTION 3. DRAKON - VISUAL ALGORITHMIC LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_4.html">SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_5.html">SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SECTION 6. BASIC SORTING ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_7.html">SECTION 7. BASIC SEARCH ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_8.html">SECTION 8. BINARY TREE ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="section_9.html">SECTION 9. BASIC GRAPHES ALGORITHMS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git/issues/new?title=Issue%20on%20page%20%2FEngl_md/section_6.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Engl_md/section_6.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SECTION 6. BASIC SORTING ALGORITHMS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-characteristics-of-sorting-algorithms">6.1. General characteristics of sorting algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bubble-sorting">6.2. Bubble sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-sort">6.3. Selection Sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insertion-sort">6.4. Insertion Sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-sorting">6.5. Quick Sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mergesort">6.6. Mergesort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shellsort">6.7. Shellsort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heapsort">6.8. Heapsort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-comparison">6.8. Sorting comparison##</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="section-6-basic-sorting-algorithms">
+<h1>SECTION 6. BASIC SORTING ALGORITHMS<a class="headerlink" href="#section-6-basic-sorting-algorithms" title="Permalink to this heading">#</a></h1>
+<div class="section" id="general-characteristics-of-sorting-algorithms">
+<h2>6.1. General characteristics of sorting algorithms<a class="headerlink" href="#general-characteristics-of-sorting-algorithms" title="Permalink to this heading">#</a></h2>
+<p>Sorting operations are used in almost all areas of human activity.
+Sorting algorithms are among the most common in IT data processing
+technologies. In general, the sorting task can be formulated as follows:
+there is a sequence of similar records, one of which is selected as a key (sorting key). You want to convert the original sequence to a
+sequence containing the same entries, but in the order in which the key values are increasing (or decreasing). The purpose of sorting is to facilitate a subsequent search of items in a sorted set.</p>
+<p>At present, a sufficient number of sorting algorithms have been
+developed, with different possibilities of application depending on the number of items in the collection. Some algorithms are simple to
+implement and are suitable for small input datasets, but longer time is required for large datasets. Other algorithms are effective for sorting large datasets, but their use for small datasets is simply not effective. In addition, the algorithms differ in complexity of implementation. Understanding some of them requires visual accompaniment, in particular by using DRAKON- diagrams to represent logic of algorithm and explanatory illustrations. Data sets in the form of a slice almost cover arrays, so this section considers the slice sorting.</p>
+</div>
+<div class="section" id="bubble-sorting">
+<h2>6.2. Bubble sorting<a class="headerlink" href="#bubble-sorting" title="Permalink to this heading">#</a></h2>
+<p>Sorting by “bubble” is the simplest algorithm, easy to implement for
+sets with few items. The algorithm got its name because the larger
+values gradually “pop up” at the end of the set. The DRAKON-diagram of the algorithm is represented in Figure 6.1. The implementation of the “bubble” sorting algorithm consists of two modules: main() and bubblesort (ar[] int).</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_1_Bubble.jpg" width="500">
+</div>
+<p style="text-align: center;">Figure 6.1. Drakon-diagram of the bubble sorting algorithm</p>
+<p>In this algorithm, the set is traversed by index (j) for each index (i). In this case, each pair of values ar[i] and ar[j] are compared. If you want to sort values in ascending order, then the two items are swapped if the value of ar[j] is less than the value of ar[i].
+Otherwise, there is a transition to the next pass on the index (i).
+Thus, the largest values appear at the end of the set. Fig.6.2. presents a fragment of the algorithm at i = 8, and fig.6.3. displays only strings in which the exchange of items took place.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_2_Eng_Frag.jpg" width="300">
+</div>
+<p style="text-align: center;">Fig.6.2. Fragment of the sorting process "bubble"</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_3.jpg" width="300">
+</div>
+<p style="text-align: center;">Fig.6.3. The rows in which the items were exchanged</p>
+<p>Obviously, the time complexity of this algorithm is quite high O(n2), since it is determined by the number of condition checks
+ar[i]&lt;ar[j] and the number of exchanges ar[i] ar[j]. At the
+same time, the space complexity of the “bubble” algorithm is O(1),
+since it does not require additional memory to organize the
+computational process. The algorithm has a high level of stability.</p>
+<p>Because of its simplicity, Bubble sorting is often used, for example, in computer graphics, where it is popular for its ability to detect minor errors in almost sorted arrays and correct them with linear complexity (2n). However, the “bubble” algorithm is extremely inefficient for sorting large datasets.</p>
+</div>
+<div class="section" id="selection-sort">
+<h2>6.3. Selection Sort<a class="headerlink" href="#selection-sort" title="Permalink to this heading">#</a></h2>
+<p>The choice sorting algorithm is based on the comparison operations, in which the data set is divided into two parts: the sorted left part and the unordered one in the right part. The selection DRAKON-diagram of the sorting algorithm is shown in Figure 6.4.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_4.jpg" width="500">
+</div>
+<p style="text-align: center;">Fig.6.4. DRAKON-diagram of Selection sort algorithm</p>
+<p>Selection sort algorithm is performed by obtaining the smallest value in each iteration and then replacing it with the current index. And the sorted part is empty, and the unsaved part is the whole set. The smallest item is selected from an unsorted array and replaced with the leftmost item, and this item becomes part of the sorted array. This process continues to move the undistributed edge of the array to one item to the right. For example, given a set of integers [90, 12, 83, 24, 75, 38, 62, 41, 59, 10]. In the first position, where 90 is currently stored, the algorithm passes the whole set and finds the smallest value - 10, after which the two values are reversed. This process shall then be applied to the remaining items in the slice (Figure 6.4.):</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_5_Table.jpg" width="300">
+</div>
+<p style="text-align: center;">Figure 6.5. Selection and replacement of slice items</p>
+<p>The evaluation of the complexity of the selection sort algorithm is
+presented in the table.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  | Time complexity  |               |      
+  |:----------------:|:-------------:|
+  |     Worst case   |    O(n^2^)    |
+  |   Average case   |    O(n^2^)    |
+  |      Best case   |    O(n^2^)    |
+  |:----------------:|:-------------:|
+  | Space complexity |    О(1)       |
+</pre></div>
+</div>
+<p>The reason why time complexity is the same for all three cases is that the sorting algorithm by choice uses two nested cycles. The outer cycle is executed n times, where n is the number of elements in the array. In each iteration of the outer cycle, the inner cycle is executed (n-1) times. Thus, the total number of comparison and permutation operations is n*(n-1), giving the time complexity of O(n 2) for all three cases 14.</p>
+</div>
+<div class="section" id="insertion-sort">
+<h2>6.4. Insertion Sort<a class="headerlink" href="#insertion-sort" title="Permalink to this heading">#</a></h2>
+<p>The insertion sort is performed by repeatedly extracting the item from the unordered part of the set and then inserting it into the sorted part of the set until all items are inserted. This algorithm is usually used by people when sorting stacks of papers. The DRAKON-diagram of the insertion sorting algorithm is presented in Figure 6.6.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_6_diagram.jpg" width=500">
+</div>
+<p style="text-align: center;">Figure 6.6. DRAKON-diagram of  Insertion  sort algorithm</p>
+<p>In this example, the items with the maximum value “advance” to the
+right, then a loop is executed, in which the neighboring items are
+compared and, if necessary, swap places (marked with “_”) (Figure 6.7).</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_7_Table.jpg" width="500">
+</div>
+<p style="text-align: center;">Figure 6.7. Insertion and replacement of slice items</p>
+<p>The complexity of the insertion sort algorithm is determined by the number of comparisons and movements of elements that need to be performed to order the array. It depends on how the array is originally sorted.
+The worst case scenario is when the array is sorted backwards. In this case, each element should be compared with all the previous elements and moved to the beginning of the array. The number of comparisons and moves is equal to</p>
+<div class="math notranslate nohighlight">
+\[\frac{n(n-1)}{2},\]</div>
+<p>it leads to O(n2)</p>
+<p>Average case: when the array is partially sorted. In this case, each element should be compared on average with half of the previous elements and moved to the appropriate position. The number of comparisons and movements is equal to</p>
+<div class="math notranslate nohighlight">
+\[\frac{n^2}{4},\]</div>
+<p>it leads to O(n2)</p>
+<p>The best case is when the array is already sorted. In this case, each element should be compared with only one previous element and left in its place. The number of comparisons and moves is equal to</p>
+<div class="math notranslate nohighlight">
+\[(n-1),\]</div>
+<p>it leads to O(n)</p>
+<p>The evaluation of the complexity of the insertion sort algorithm is
+presented in the table.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        | Time complexity   |               |
+        |:-----------------:|:-------------:|
+        |     Worst case    |    O(n^2^)    |
+        |   Average case    |    O(n^2^)    |
+        |      Best case    |    O(n)       |
+        |:-----------------:|:-------------:|
+        | Space complexity  |    О(1)       |
+        |:-----------------:|:-------------:|
+</pre></div>
+</div>
+</div>
+<div class="section" id="quick-sorting">
+<h2>6.5. Quick Sorting<a class="headerlink" href="#quick-sorting" title="Permalink to this heading">#</a></h2>
+<p>Quicksort is a highly efficient sorting algorithm whose general scheme consists of the following steps:</p>
+<ol class="arabic simple">
+<li><p>Selecting a reference item from a slice.</p></li>
+<li><p>Redistributing items in a slice in such a way that items smaller
+than the reference one are placed in front of it, and those greater or equal - after it.</p></li>
+<li><p>Recursively applying the first previous steps to slice fragments to the left and right of the reference item.</p></li>
+<li><p>As a result, a fully sorted array is formed.
+The DRAKON-diagram of the quicksort algorithm is shown in Figure 6.8.</p></li>
+</ol>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_8_Quick1.jpg" width="500">
+</div>
+<p style="text-align: center;">a) function main(); b) function Quicksort</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_8_Quick2.jpg" width="500">
+</div>
+<p style="text-align: center;">c) function Partition</p>
+<p style="text-align: center;">Figure 6.8. DRAKON-diagram quick sorting algorithm</p>
+<p>Consider this algorithm in depth. The main function presents a
+collection of integer data. The pivot support item is selected with the slice item of 31.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_8_Quick3.jpg" width="300">
+</div>
+<p>Enter two pointers: left and right. At the beginning of the algorithm, they indicate the left and right end of the set respectively. In the left pointer algorithm, the left pointer is moved in 1 step towards the end of the slice until the current item value is less than the reference item value. The index of the first item, whose value is greater than pivot (ar[left] &gt; pivot), is fixed in the variable left. In the algorithm, the right pointer then moves from the end of the slice to the
+beginning until an item for which the condition ar[right] &lt;= pivot is found. This fragment of the algorithm is executed until an item whose value exceeds that of the right item on the right is found on the left.
+In this case, these items are reversed. In this example, the first
+(left) item is larger than the supporting one (78 &gt;31) and the last
+(right) item is smaller than the supporting one (24 &lt; 31). In the
+second line of the table they switched. The process continues (Figure 6.9.):</p>
+<p>`<div style="text-align: center;">
+<img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_9_Quick4.jpg" width="400"></p>
+</div>
+<p style="text-align: center;">Figure 6.9. QuickSort algorithm runtime</p>
+<p>A new fragment of the source set is then formed in which the support
+item is overridden. In this fragment, pivot = 11.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_9_Quick5.jpg" width="100">
+</div>
+After processing the left part of the set, the right part is processed in the same way. Eventually, the slice becomes sorted:
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_9_Quick6.jpg" width="300">
+</div>
+<p>The complexity of the Quick Sort time depends on how the reference is selected. In the best-case scenario, when the reference element is the median, the time difficulty is O(nlogn). For the average case Quick Sort uses a divide-and-conquer strategy, which consists of splitting an array into two parts and sorting each of them separately. Each time the array is split in two, Quick Sort performs O(n) operations. Since the array is split into two parts until there is only one element left in each part, we can write this as a recursive formula: T(n) = 2T(n/2) + O(n), where T(n) is the Quick sort execution time for an array of size n. Precisely because the array is halved each time, the sorting execution time is estimated as O(nlogn) in the average and best case.</p>
+<p>The evaluation of the complexity of the Quiсk sort algorithm is
+presented in the table.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        | Time complexity   |               |
+        |:-----------------:|:-------------:|
+        |     Worst case    |    O(n^2^)    |
+        |   Average case    |    O(nlogn)   |
+        |      Best case    |    O(nlogn)   |
+        |:-----------------:|:-------------:|
+        | Space complexity  |               |
+        |:-----------------:|:-------------:|
+        |     Worst case    |    O(n)       |
+        |     Average case  |    O(logn)    |
+        |:-----------------:|:-------------:|
+        Quick Sort is a unstable sorting algorithm 
+</pre></div>
+</div>
+</div>
+<div class="section" id="mergesort">
+<h2>6.6. Mergesort<a class="headerlink" href="#mergesort" title="Permalink to this heading">#</a></h2>
+<p>Merge sorting is performed by recursively splitting the collection into fragments until there is a fragment consisting of two items. The two items are easily compared and ordered according to the requirement: ascending or descending. The split is followed by an inverse merge, in which at one point (or in a loop) one item from each slice fragment is selected and compared. The smallest (or largest) item is stored in the result set, the remaining item remains valid for comparison with an item from another fragment in the following step (Figure 6.10.):</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_10_Merge.jpg" width="500">
+</div>
+<p style="text-align: center;">Figure 6.10. Visualizing the Merge sort algorithm</p>
+<p>The DRAKON-diagram of the merge sorting algorithm is presented in Figure 6.11.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_11a.jpg" width="400">
+</div>
+<p style="text-align: center;">a)</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_11b.jpg" width="500">
+</div>
+<p style="text-align: center;">b)</p>
+<p style="text-align: center;">Figure 6.11. The DRAKON-diagram of the Merge sorting algorithm:</p>
+<p style="text-align: center;">a) function *MergeSort*; b) function *merge*</p>
+<p>The Mergesort algorithm has a time complexity of O(n log n), where n is the number of items to be sorted. The algorithm divides the original array in half until the underlying unit length of the array is reached. Each partition is O(log n), where log n is the number of partitions. After splitting the array, the algorithm begins to merge the individual parts of the array, combining them into a sorted resulting array. The number of merges in total is n, because for each part of the array, we compare the elements and put them in the correct order.</p>
+<p>The evaluation of the complexity of the Merge sorting algorithm is
+presented in the table.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        | Time complexity   |               |
+        |:-----------------:|:-------------:|
+        |     Worst case    |    O(nlogn)   |
+        |     Average case  |    O(nlogn)   |
+        |      Best case    |    O(nlogn)   |
+        |:-----------------:|:-------------:|
+        | Space complexity  |               |
+        |:-----------------:|:-------------:|
+        |     Worst case    |    O(n)       |
+        |     Average case  |    O(n)       |
+        |     Best case     |    O(n)       |
+        |:-----------------:|:-------------:|
+</pre></div>
+</div>
+<p>Merge Sort is a stable sorting algorithm because it maintains the relative order of equal elements in the input array. The stability of Merge Sort is due to its divide-and-conquer approach. In Merge Sort, the input array is recursively divided into smaller subarrays until each subarray contains only one element. Then, these subarrays are merged back together in a sorted order. During the merging process, if two elements are equal, then the element from the left subarray is placed before the element from the right subarray. This ensures that the relative order of equal elements in the input array is preserved in the sorted array.</p>
+</div>
+<div class="section" id="shellsort">
+<h2>6.7. Shellsort<a class="headerlink" href="#shellsort" title="Permalink to this heading">#</a></h2>
+<p>ShellSort is a variation of insertion Sort. When sorting out, Shellsort first  compares and sorts between values that are separated from each other at some distance <em>d</em>. After that, the procedure is repeated for some smaller values <em>d</em> until the distance becomes <em>d=1</em> (that is, the usual sorting of inserts). The DRAKON-diagram of the algorithm is presented in Figure 6.10.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_12_BShell.jpg" width="300">
+</div>
+<p style="text-align: center;">Figure 6.12. DRAKON-diagram of Shellsort algorithm</p>
+<p>Shellsort uses a process that underlies many of the sorts presented:
+sequential segmentation, sorting of these segments, and finally grouping them into a sorted set. The process of partitioning occurs so that each item in the segment represents a fixed number of positions from each other. This creates uncertainty in the choice of this number of positions, in other words, the distance between the items in the segment (<em>d</em>). The simplest example is <em>d = n / 2, d2 = d/2 … dn =1.</em></p>
+<p>Figure 6.13 shows the exchange of items under <em>a[k] &lt; a[k-d],</em>
+where d=5 at the first pass of the collection.</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_13_Fragment.jpg" width="400">
+</div>
+<p style="text-align: center;">Figure 6.13. Fragment of algorithm of exchange of items of set</p>
+<p>The average estimate of the time complexity of the Shell sorting algorithm is <em>O(n*log 2(n))</em>. This is due to several factors. First, the Shell sorting algorithm is a modified version of the insertion sorting algorithm. It uses the principles of separating and sequentially sorting subarrays, which allows you to speed up the sorting process.
+Second, the complexity of Shell’s sorting algorithm depends on various factors, such as the size of the input data set and the selected values of the sequence of breaks (steps) to be sorted. Different sequences of breaks can give different temporal difficulties.
+Because shell sorting incrementally refines and sorts subarrays in increments that include different values in the break sequence, its temporal complexity depends on these values. The optimal break sequence values for the best time complexity are not yet known, so the overall estimate of the time complexity of the Shell sorting algorithm remains some speculation.
+As a result, although the average estimate of the time complexity of the Shell sorting algorithm indicates <em>O(n*log^2(n))</em>, an accurate estimate can be difficult due to variation in the choice of the value of the sequence of breaks and other factors. With respect to stability, Shell Sort does not guarantee stability in its original form, it can be modified to maintain stability through certain methods.</p>
+</div>
+<div class="section" id="heapsort">
+<h2>6.8. Heapsort<a class="headerlink" href="#heapsort" title="Permalink to this heading">#</a></h2>
+<p>The pyramid sorting algorithm can be seen as an improved version of the choice sorting algorithm (Select Sort): it divides the input data into sorted and unreported areas, and then successively reduces the unreported area, removing the largest item and moving it to the sorted area. An improvement is that the binary pile is used to find the highest value, not the linear search algorithm. This algorithm is executed using the notion of heap, which is a complete binary tree ([see sub-section 1.3]{.mark}.). All nodes of a heap are either larger than its child items or smaller than its child items. A heap binary tree can be of two types: a minimum heap (MinHeap), in which the parent node is always smaller than the child nodes, and a maximum heap (MaxHeap), in which the parent node is always greater than or equal to the child nodes (Figure 6.14).</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_14_Graphes.jpg" width="600">
+</div>
+<p style="text-align: center;">Figure 6.14. Binary tree examples (a - MinHeap; b - MaxHeap)</p> 
+<p>Construction of a binary tree from an array is simplified by the fact that the original array is actually an unordered heap (Figure 6.15.):</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_15_Binary.jpg" width="300">
+</div>
+<p style="text-align: center;">Figure 6.15. Binary tree example</p>
+<p>The tree node sequence, starting with the root node, is performed by the formula:</p>
+<div class="math notranslate nohighlight">
+\[i_n = \frac{array\ size}{2} - 1\]</div>
+<p>First, the algorithm swaps the nodes (20) and (41), then the nodes (5) and (52), then we present this process in the table:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>23</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>20</p></th>
+<th class="head"><p>52</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>41</p></th>
+<th class="head"><p>14</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>23</p></td>
+<td><p>5</p></td>
+<td><p><strong>41</strong></p></td>
+<td><p>52</p></td>
+<td><p>11</p></td>
+<td><p><strong>20</strong></p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td><p>23</p></td>
+<td><p><strong>52</strong></p></td>
+<td><p>41</p></td>
+<td><p><strong>5</strong></p></td>
+<td><p>11</p></td>
+<td><p>20</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>52</strong></p></td>
+<td><p><strong>23</strong></p></td>
+<td><p>41</p></td>
+<td><p>5</p></td>
+<td><p>11</p></td>
+<td><p>20</p></td>
+<td><p>14</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>14</strong></p></td>
+<td><p>23</p></td>
+<td><p>41</p></td>
+<td><p>5</p></td>
+<td><p>11</p></td>
+<td><p>20</p></td>
+<td><p><strong>52</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>41</strong></p></td>
+<td><p>23</p></td>
+<td><p>14</p></td>
+<td><p>5</p></td>
+<td><p>11</p></td>
+<td><p>20</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>20</strong></p></td>
+<td><p>23</p></td>
+<td><p>14</p></td>
+<td><p>5</p></td>
+<td><p>11</p></td>
+<td><p><strong>41</strong></p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>23</strong></p></td>
+<td><p><strong>20</strong></p></td>
+<td><p>14</p></td>
+<td><p>5</p></td>
+<td><p>11</p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>11</strong></p></td>
+<td><p>20</p></td>
+<td><p>14</p></td>
+<td><p>5</p></td>
+<td><p><strong>23</strong></p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>20</strong></p></td>
+<td><p><strong>11</strong></p></td>
+<td><p>14</p></td>
+<td><p>5</p></td>
+<td><p>23</p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><p>11</p></td>
+<td><p>14</p></td>
+<td><p><strong>20</strong></p></td>
+<td><p>23</p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>11</strong></p></td>
+<td><p><strong>5</strong></p></td>
+<td><p>14</p></td>
+<td><p>20</p></td>
+<td><p>23</p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>5</strong></p></td>
+<td><p><strong>11</strong></p></td>
+<td><p>14</p></td>
+<td><p>20</p></td>
+<td><p>23</p></td>
+<td><p>41</p></td>
+<td><p>52</p></td>
+</tr>
+</tbody>
+</table>
+<p>The heap sorting algorithm uses three functions: <em>heap_Sort</em>, which
+performs node overwriting, <em>heapify</em>, which compares adjacent nodes, and <em>swap</em>, which swap two nodes. The sequence of the nodes in the heap is shown in Figure 6.16:</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_16_All.jpg" width="500">
+</div>
+<p style="text-align: center;">Figure 6.16. Sequence of node movement in heap</p>
+<p>DRAKON-diagram of heap algorithm is presented in Figure 6.17:</p>
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_17a_Heap.jpg" width="500">
+</div>
+<p style="text-align: center;">a) function heapsort;</p> 
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im6/Fig6_17b_Heap.jpg" width="500">
+</div>
+<p style="text-align: center;">b) function heapRoot</p>
+<p style="text-align: center;">Figure 6.17. DRAKON-diagram heap sorting algorithm</p>
+<p>The evaluation of the complexity of the heap sorting algorithm presented in the table</p>
+</div>
+<div class="section" id="sorting-comparison">
+<h2>6.8. Sorting comparison##<a class="headerlink" href="#sorting-comparison" title="Permalink to this heading">#</a></h2>
+<p>Choosing a sorting  algorithm is determined by the following
+factors:  1</p>
+<p>• Time complexity;</p>
+<p>• Space  complexity;</p>
+<p>• Stability/instability.</p>
+<p>Knowing the strengths and weaknesses of each of the algorithms
+considered allows you to make a choice in favor of a particular sort. Each algorithm is unique and works best under certain conditions.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Аlgorithm</p></th>
+<th class="head"><p>Worst</p></th>
+<th class="head"><p>Average</p></th>
+<th class="head"><p>Best</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bubble</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Selection</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Insertion</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quick Sort</p></td>
+<td><p>O(n<sup>2</sup>)</p></td>
+<td><p>O(nlog(n))</p></td>
+<td><p>O(nlog(n))</p></td>
+</tr>
+<tr class="row-even"><td><p>Merge Sort</p></td>
+<td><p>O(nlog(n))</p></td>
+<td><p>O(nlog(n))</p></td>
+<td><p>O(nlog(n))</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shell Sort</p></td>
+<td><p>O(n(log(n)<sup>2</sup>)</p></td>
+<td><p>O(n(log(n)<sup>2</sup>)</p></td>
+<td><p>O(n)</p></td>
+</tr>
+<tr class="row-even"><td><p>Heap Sort</p></td>
+<td><p>O(n.log(n))</p></td>
+<td><p>O(n.log(n))</p></td>
+<td><p>O(n.log(n))</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Аlgorithm</p></th>
+<th class="head"><p>Space comlexity</p></th>
+<th class="head"><p>Stable</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Bubble</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-odd"><td><p>Selection</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-even"><td><p>Insertion</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quick Sort</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-even"><td><p>Merge Sort</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-odd"><td><p>Shell Sort</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+<tr class="row-even"><td><p>Heap Sort</p></td>
+<td><p>O(1)</p></td>
+<td><p>Stable</p></td>
+</tr>
+</tbody>
+</table>
+<p>Some common sorting algorithms are inherently stable, such as merge
+sort, count sort, insertion sort, and bubble sort. Others, such as
+Quicksort, Heapsort, and Selection Sort, are unstable. For example, we can use the extra space to maintain stability in Quicksort.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Engl_md"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="section_5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="section_7.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SECTION 7. BASIC SEARCH ALGORITHMS</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-characteristics-of-sorting-algorithms">6.1. General characteristics of sorting algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bubble-sorting">6.2. Bubble sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-sort">6.3. Selection Sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#insertion-sort">6.4. Insertion Sort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-sorting">6.5. Quick Sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mergesort">6.6. Mergesort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shellsort">6.7. Shellsort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#heapsort">6.8. Heapsort</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sorting-comparison">6.8. Sorting comparison##</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ivanov S.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

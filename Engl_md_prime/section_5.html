@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM &#8212; Data Structures and Algorithms. Hybrid approach (DRAKON + GOLANG)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Engl_md_prime/section_5';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    DATA STRUCTURES AND ALGORITHMS HYBRID IMPLEMENTATION (DRAKON + GOLANG)
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_1.html">SECTION 1. ABSTRACT DATA TYPES (ADT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_2.html">SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_3.html">SECTION 3. DRAKON - VISUAL ALGORITHMIC LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_4.html">SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_5.html">SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_6.html">SECTION 6. BASIC SORTING ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_7.html">SECTION 7. BASIC SEARCH ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_8.html">SECTION 8. BINARY TREE ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_9.html">SECTION 9. BASIC GRAPHES ALGORITHMS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git/issues/new?title=Issue%20on%20page%20%2FEngl_md_prime/section_5.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Engl_md_prime/section_5.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-algorithms">5.1 Requirements for algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-analysis-of-algorithm-complexity">5.2. Theoretical analysis of algorithm complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-qualitative-assessment">5.3. Complexity qualitative assessment</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="section-5-complexity-and-stability-analysis-of-algorithm">
+<h1>SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM<a class="headerlink" href="#section-5-complexity-and-stability-analysis-of-algorithm" title="Permalink to this heading">#</a></h1>
+<div class="section" id="requirements-for-algorithms">
+<h2>5.1 Requirements for algorithms<a class="headerlink" href="#requirements-for-algorithms" title="Permalink to this heading">#</a></h2>
+<p>The previous sections focused on the description of the most common data structures, on the one hand as abstract entities, and on the other - their concrete implementation in the programming language Golang. This section will deal with the theoretical analysis of algorithms for processing data structures from the perspective of estimating the time spent on program code execution and computer memory usage.</p>
+<p>In theory and in practice, data structure processing algorithms are
+defined as a set of sequentially performed, stable procedures that
+provide a final computational result based on a fixed and limited set of source data. Most data processing algorithms include basic data processing procedures such as searching, sorting, adding, updating, deleting, etc.</p>
+<p>Foremost, it should be noted that a “good algorithm” must have two
+characteristics: a) correctness and b) finality. <em>Correctness</em> means
+that if an algorithm is designed to solve a particular problem, it must always produce the correct result for all the source data and no input data will get the wrong result. The <em>finiteness</em> of the algorithm means that a finite number of computational operations must be performed to obtain the result, i.e. the execution of the program code must stop at some point in time.</p>
+<p>Once the algorithm is correct and finite, the most important
+characteristic of the algorithm is efficiency, which is achieved by
+meeting the following requirements:</p>
+<ol class="arabic simple">
+<li><p>The algorithm should effectively use the resources available to the system;</p></li>
+<li><p>The computational time (time taken to generate an output data
+corresponding to a particular input ones) should be minimal;</p></li>
+<li><p>The memory used by the algorithm should also be as small as
+possible.</p></li>
+</ol>
+<p>In most computational tasks, it is necessary to strive for a compromise between computation time and occupied memory. In other words, when choosing a method for solving a computational problem, you need to decide on priorities: what is more important - the computation time or the amount of memory occupied. It may seem that this is not so important for modern computers. However, when solving complex problems associated with the processing of huge amounts of data, for example, for artificial intelligence problems or for bioinformatics problems (for example, genome decoding), the search for the optimal combination of computing time and computer memory becomes decisive. In this regard, we will define the term “algorithm complexity” as a measure of the amount of time and/or  required to solve a problem, depending on the size of the data.</p>
+<p>Such analysis involves determining a function that links the length of the input data of the algorithm to the time it takes (its <em>time
+complexity</em>) or the number of storage locations it uses (*the complexity of the *). The algorithm is considered effective when the values of this function are either negligible or slowly increasing relative to the size of the input data.</p>
+</div>
+<div class="section" id="theoretical-analysis-of-algorithm-complexity">
+<h2>5.2. Theoretical analysis of algorithm complexity<a class="headerlink" href="#theoretical-analysis-of-algorithm-complexity" title="Permalink to this heading">#</a></h2>
+<p>Ultimately, the created algorithms must be implemented on some computing device using the generated program code. Therefore, one should distinguish between the complexity of the algorithm itself and the complexity of its computer implementation. The fastest algorithm implemented on a slow computing device may be less efficient than a less successful algorithm implemented on a computer with more processing power or a programming language capable of parallel computing.</p>
+<p>Thus, when assessing the complexity of the algorithms, they are carried out on an abstract machine with random access to memory, which makes it possible not to take into account the low-level parameters of the computing device (processor memory size, multitasking, etc.). The model of such a machine consists of memory and a processor, which work as follows :</p>
+<ul class="simple">
+<li><p>memory consists of cells, each of which has an address and can store one data element;</p></li>
+<li><p>each memory call takes one unit of time, regardless of the number of the addressable cell.</p></li>
+<li><p>the amount of memory is sufficient to execute any algorithm;</p></li>
+<li><p>the processor performs any elementary operation in one time step;</p></li>
+<li><p>loops and functions are not considered elementary operations.</p></li>
+</ul>
+<p>A labor intensity  of the <em>Tn</em> algorithm associated with estimates of its complexity is determined by counting the number of operations
+performed. For example, consider the algorithm for finding the maximum element of an array.</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>package main  
+import (
+    &quot;fmt&quot;  
+)
+ 
+func main() {  
+ array:= []int{11, 9, 17, 45, 411}
+N := len(array)  
+maxNumber := array[0]  
+for item:= 1; item &lt; N; item++ {
+if array[item] &gt; maxNumber {  
+    maxNumber = array\[item\]  
+}  
+}  
+ fmt.Println(&quot;The smallest value of an array element = &quot;, maxNumber)  
+}
+</pre></div>
+</div>
+<p>When implementing this algorithm, the following will be performed:</p>
+<ol class="arabic simple">
+<li><p>(N - 1) the operation of assigning a new value to the loop counter i;</p></li>
+<li><p>(N - 1) the operation of comparing the counter with the value N;</p></li>
+<li><p>(N - 1) the operation of comparing an array element with the value of maxNumber;</p></li>
+<li><p>from 1 to N operations of assigning a value to the variable
+maxNumber.</p></li>
+</ol>
+<p>It is obvious that such a calculation for determining the complexity of the algorithm and estimating its complexity is individual and depends on the size of the input data. Therefore, it was quite natural to propose a qualitative assessment of complexity: depending on the “quality” of the initial data: the best option, the worst and the average.</p>
+</div>
+<div class="section" id="complexity-qualitative-assessment">
+<h2>5.3. Complexity qualitative assessment<a class="headerlink" href="#complexity-qualitative-assessment" title="Permalink to this heading">#</a></h2>
+<p>Asymptotic notations such as omega-notation, theta-notation, and Big-O notation that reflect the three time bounds of the algorithm (lower, middle, and upper) are used to quantify the complexity of algorithms. Omega notation is the lower bound of the algorithm’s running time, which characterizes the best algorithm complexity in terms of achieving efficiency. For any value of n of the source data, the minimum time required by the algorithm is set to Ω(f(n)).</p>
+<p>The Big-O notation represents the upper bound on the execution time of the algorithm, which characterizes the worst complexity of the algorithm in terms of efficiency. In most practical cases, this notation is used to evaluate the effectiveness of algorithms, since it is the worst-case scenario of the computational process that the software developer must evaluate. Finally, theta notation (Θ-notation) is an upper and lower bound on the execution time of algorithms and is used to analyze their average complexity. Consider in more detail the Big O notation that determines the upper bound of any algorithm, that is, the algorithm cannot take longer than the upper bound.</p>
+<p>To begin with the simplest time-constant algorithm is an algorithm that requires the same amount of time, regardless of its input data, whose complexity is denoted as O(1). For example, given two numbers, you need to calculate the sum. This is followed by the logarithmic time complexity O(log n). When the time taken by the algorithm is proportional to the logarithm of input size n, it is said to have logarithmic time complexity. An example is the simple calculation of the number of print operations of the index cycle:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>func main() {
+    n := 16
+    for i:= 1; i \&lt; n; i=i*2 {
+        fmt.Println(&quot;i = &quot;, i)
+        }
+    }
+</pre></div>
+</div>
+<p>Recall that <span class="math notranslate nohighlight">\(log_2 16 = log_2 2^4 = 4 log_2 2 = 4\)</span>, since <span class="math notranslate nohighlight">\(log_2 2 = 1\)</span>. Algorithms with logarithmic complexity are considered highly efficient because the ratio of execution time of one operation to the size of the data array decreases with its increasing size. Algorithms that work in logarithmic time are usually found in binary tree operations or binary search operations. Such algorithms will be discussed in the next
+section.</p>
+<p>Linear time complexity (O) characterizes algorithms whose execution time linearly depends on the size of the input data (n). The simplest example is the problem of computing the sum of n numbers:</p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>func main() {
+    n := 16
+    sum := 0
+    for i:= 0; i &lt; n; i++ {
+        sum = sum + i
+    }
+    fmt.Println(\&quot;sum =\&quot;, sum)
+}
+</pre></div>
+</div>
+<p>Typical examples of linear time complexity are algorithms associated
+with arrays sorting, which will be shown in the next section. It is
+important to note that linear complexity algorithms do not require
+additional memory. This is followed by the quadratic complexity of O(n2) algorithms, the number of operations in which is quadratic depending on the size of the input data. As an example we can give the algorithm of multiplication of two numbers in the interval <em>[1:n;1:m]:</em></p>
+<div class="highlight-Go notranslate"><div class="highlight"><pre><span></span>func main() {
+    n := 3
+    m := 5
+    pow := 1
+    for i:= 1; i \&lt; n; i++ {
+        for j:= 1; j \&lt; m; j++ {
+            pow = pow\*i\*j
+        }
+    }
+    fmt.Println(\&quot;pow =\&quot;, pow)
+}
+</pre></div>
+</div>
+<p>The comparison of the discussed copmlexities is presented in the form of a table. Table. Comparison of general copmlexities</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1T.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1T.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1T.jpg" style="width: 400px;" /></a>
+<p>Or in graphic form (Figure.5.1.).</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im5/Fig5_1.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 5.1. Comparison of general copmlexities</p>
+<p>As shown in this table and graph, as the complexity of the function
+increases, the number of computations or the time required to perform the function can increase significantly. Moving forward, we will delve into the individual algorithms while providing an assessment of their computational complexity.
+Another characteristic of the computational complexity of algorithms is the  complexity, estimated by the amount of memory required by the algorithm in its life cycle. This  consists of fixed and variable parts [Vasiliev]. A fixed part is the  required to store simple variables and constants, as well as the program size, which is independent of the complexity of the task. A part variable is the  required by variables, the size of which depends entirely on the size of the task.
+For example, recursion stack , dynamic memory allocation, etc.</p>
+<p>Space complexity is evaluated as O(1) if only the input data set is used. If the problem requires an auxiliary memory of the same size as the input memory (the memory to store the original array), then the  complexity is evaluated as O(n2).</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Engl_md_prime"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-algorithms">5.1 Requirements for algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#theoretical-analysis-of-algorithm-complexity">5.2. Theoretical analysis of algorithm complexity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity-qualitative-assessment">5.3. Complexity qualitative assessment</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ivanov S.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

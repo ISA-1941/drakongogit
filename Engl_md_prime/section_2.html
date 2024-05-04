@@ -1,0 +1,1276 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW &#8212; Data Structures and Algorithms. Hybrid approach (DRAKON + GOLANG)</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Engl_md_prime/section_2';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    DATA STRUCTURES AND ALGORITHMS HYBRID IMPLEMENTATION (DRAKON + GOLANG)
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_1.html">SECTION 1. ABSTRACT DATA TYPES (ADT)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_2.html">SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_3.html">SECTION 3. DRAKON - VISUAL ALGORITHMIC LANGUAGE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_4.html">SECTION 4. IMPLEMENTATION OF BASIC ABSTRACT DATA TYPES IN GOLANG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_5.html">SECTION 5. COMPLEXITY AND STABILITY ANALYSIS OF ALGORITHM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_6.html">SECTION 6. BASIC SORTING ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_7.html">SECTION 7. BASIC SEARCH ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_8.html">SECTION 8. BINARY TREE ALGORITHMS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Engl_md/section_9.html">SECTION 9. BASIC GRAPHES ALGORITHMS</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/ISA-1941/drakongogit.git/issues/new?title=Issue%20on%20page%20%2FEngl_md_prime/section_2.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Engl_md_prime/section_2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-go-programming-language">2.1. What is the Go Programming Language?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#program-structure-in-go">2.2. Program structure in Go</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-and-constants">2.3. Variables and constants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-and-output">2.4. Input and output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#golang-decision-making">2.5. Golang decision making</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">2.6 Loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">2.7. Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-types">2.7.1. Basic types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-types">2.7.2 Aggregate types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refetence-types">2.7.3 Refetence types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#associative-arrays-map">2.7.3. Associative arrays (Map)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-methods">2.8. Functions and Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">2.8.1 Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">2.8.2 Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-type">2.9. Interface type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="section-2-golang-programming-language-overview">
+<h1>SECTION 2. GOLANG PROGRAMMING LANGUAGE OVERVIEW<a class="headerlink" href="#section-2-golang-programming-language-overview" title="Permalink to this heading">#</a></h1>
+<div class="section" id="what-is-the-go-programming-language">
+<h2>2.1. What is the Go Programming Language?<a class="headerlink" href="#what-is-the-go-programming-language" title="Permalink to this heading">#</a></h2>
+<p>Since this work uses an integrated approach to software implementation
+of algorithms, it is necessary to at least briefly describe the basic
+concepts and constructions of its components: visual algorithmic
+language DRAKON and programming language Golang. It is thought that this
+approach is very promising, foremost, in the field of education, because
+it promotes the formation and development of algorithmic, computer
+thinking and is quite justified for application in the field of computer
+science as data structures and algorithms. However, it is assumed that
+the reader is familiar with at least one of the modern programming
+languages. At the same time, the Golang language description is limited
+to constructs sufficient to understand data structure algorithms.</p>
+<p>This section focuses on the features of software constructions:
+<em>variables, arrays, slicess, maps, pointers, logical operators, cycles,
+structures, recursion,</em> etc. Special emphasis is placed on the
+description of data types both basic and user. It is also considered to
+be an interface. Everything that goes beyond “Data structures and
+algorithms” is presented in various materials, which are given both in
+the course of the text and in the list of literature.</p>
+<p>Golang (Go) is a general-purpose language designed with system
+programming in mind. The language was originally developed at Google in
+2007 by Robert Grizemer, Rob Pike and Ken Thompson. It is strongly and
+statically typed (requires precise indication of types of variables),
+provides built-in support for garbage collection and supports parallel
+programming []. The following are the most important features of Go
+programming language.</p>
+<ul class="simple">
+<li><p>Simple and clear syntax. This makes writing code a pleasant
+occupation.</p></li>
+<li><p>Static typing. Avoids inadvertent errors, simplifies the reading and
+understanding of code, makes code unambiguous.</p>
+<ul>
+<li><p>Speed and compilation. Go’s speed is ten times faster than
+scripting languages, with less memory consumption. At the same
+time, the compilation is almost instantaneous. The whole project
+is compiled into one binary file, without dependencies. As they
+say, “just add water”. And you don’t have to worry about
+memory, you have a garbage collector.</p></li>
+<li><p>Deviation from the concept of object-oriented programming (OOP).
+The language does not have classes, but there are data
+structures with methods. Inheritance is replaced by an embedding
+mechanism. There are interfaces that do not need to be
+explicitly implemented, but only enough to implement the
+interface methods.</p></li>
+</ul>
+</li>
+<li><p>Parallelism. Parallel computations in the language are simple and
+graceful. Gorutins (something like threads) are lightweight, consume
+little memory.</p></li>
+<li><p>Rich standard library. The language has everything necessary for web
+development and not only. The number of third-party libraries is
+constantly growing. You can also use C and C++ libraries.</p></li>
+<li><p>Ability to write in a functional style. The language has closures
+(closures) and anonymous functions. Functions are first-order
+objects, they can be passed as arguments and used as data types.</p></li>
+</ul>
+</div>
+<div class="section" id="program-structure-in-go">
+<h2>2.2. Program structure in Go<a class="headerlink" href="#program-structure-in-go" title="Permalink to this heading">#</a></h2>
+<p>The structure of the program in the language Golang is presented in
+Figure 2.1.</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_1_Structure.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_1_Structure.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_1_Structure.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 2.1. Program structure in Go language</p>
+<p>Every program on Go is a package. Depending on its content, this package can be the main program file, or a library with problem-oriented code.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;fmt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here main function means that its contents will be executed after the program is run. In addition to it, the program can have as many other functions</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>func main() {
+
+// function content
+
+fmt.Println(\&quot;Hello World\&quot;)
+
+}
+</pre></div>
+</div>
+<p>Comments in Go exist in two types: single-line and multi-line.</p>
+<p>// - one-line commentary;</p>
+<p>/* */ - multiline comment placed between these symbols</p>
+</div>
+<div class="section" id="variables-and-constants">
+<h2>2.3. Variables and constants<a class="headerlink" href="#variables-and-constants" title="Permalink to this heading">#</a></h2>
+<p>A variable in any programming language assigns a storage location for a value associated with a symbolic name or identifier. One variable or list of variables used in the program is declared via the keyword var. Values are assigned to variables by the sign “=”. When declaring a variable, you must specify its type so that the compiler knows how to process it. That is why the language Go is called strictly typed.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">i</span> <span class="nb">int</span>
+<span class="n">var</span> <span class="n">s</span> <span class="n">string</span>
+<span class="n">var</span> <span class="n">f</span> <span class="nb">bool</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>here i is an integer variable; s is a string variable, f is a logical variable.</p>
+<p>When declaring a variable, you can assign initial values that can be changed later:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>var a int = 25
+var a, b, c int 100, 200 300
+var y = float32 = 32.5
+var z string = \&quot;Input new value &quot;\
+</pre></div>
+</div>
+<p>In the absence of initial values, the variables are either zeroed (for numeric types) or filled in with empty lines (for string data). It is possible to briefly declare variables via the operator <em>:=</em>, for example <em>a := 2.5</em>. However, in this case, the variable is local, that is, only available in a separate fragment of the program.</p>
+<p>Assigning variable names should be based on certain rules and style:</p>
+<ul class="simple">
+<li><p>variable names can only contain one word (without spaces).</p></li>
+<li><p>variable names can only contain letters, digits and underscore
+characters (_).</p></li>
+<li><p>variable names cannot start with digits.</p></li>
+</ul>
+<p>The variables are case-sensitive, but the case of the first letter of the variable name in Go is particularly important. If the variable name starts with a capital letter, this means that the variable is available outside the package where it was declared (the exported variable). If the variable name starts with a lowercase letter, it will only be available in the package where it is declared.</p>
+<p>Constants are program objects whose values do not change in the program code. Constants are declared with the keyword: <em>const</em>:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="kt">string</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="kt">int</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="kt">float64</span>
+</pre></div>
+</div>
+<p>It is allowed to assign initial values without declaring type:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;name&quot;</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">25</span>
+<span class="kd">const</span><span class="w">  </span><span class="nx">y</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">45.5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="input-and-output">
+<h2>2.4. Input and output<a class="headerlink" href="#input-and-output" title="Permalink to this heading">#</a></h2>
+<p>Data entry is done by using the Scan(&amp;Variable Name) function to simply put the entered value into a variable or Scanf(%format, &amp;Variable Name) to pre-specify the type of data to be entered.</p>
+<p>To implement the data output at the beginning of the program (after
+package main), the corresponding <em>fmt</em>-package is imported, which contains many output functions depending on the type of variables, location and explanatory string enclosed in double quotation marks ( n - line translation). The prefix <em>fmt</em> is used to communicate with the corresponding package.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>fmt.Print (&quot;Hello&quot;) // output without newline
+fmt.Println () // output with cursor to new line
+fmt.Printf() // outputting variable values to text
+fmt.fmt.Printf(\&quot;Hello %d\\n\&quot;, 23) // print string and integer type
+fmt.Fprint(\&quot;Hello \&quot;, 23, \&quot;\\n\&quot;) //same with newline
+fmt.fmt.Println(\&quot;Hello\&quot;, 23) // string and number output
+fmt.Printf(\&quot;This year I passed %v the cities, \&quot;, &amp;output)
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>package main
+import &quot;fmt&quot;
+func main() {
+var name string
+var salary int
+fmt.Println(\&quot;Enter last name \&quot;)
+fmt.Scanf(\&quot;%s \\n\&quot;, &amp;name)
+fmt.Println(\&quot;Enter salary \&quot;)
+fmt.Scanf(\&quot;%d \\n\&quot;, &amp;salary)
+fmt.Printf(\&quot;%s \\n\&quot;,name)
+fmt.Printf(\&quot;%d \\n\&quot;,salary)
+fmt.Printf(\&quot;Salary %s is %d dollars \&quot;, name, salary)
+Output:
+Enter last name
+Smith
+Enter salary
+32000
+Smith
+32000
+Smith&#39;s salary is 32,000 rubles
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="golang-decision-making">
+<h2>2.5. Golang decision making<a class="headerlink" href="#golang-decision-making" title="Permalink to this heading">#</a></h2>
+<p>When solving a multitude of problems, the problem arises of choosing a further way of solving depending on some conditions. In the Go language, this possibility is implemented by the following constructions:</p>
+<ul class="simple">
+<li><p>selection by condition: <em>if else; switch case; select</em>;</p></li>
+<li><p>repetition of commands using iterations: <em>for (range)</em>;</p></li>
+<li><p>change of behavior in the course of iterations: <em>break and continue</em>.</p></li>
+</ul>
+<p>a). Conditional statement <em>if-else</em></p>
+<p>The Go language uses three decision-making constructs or, in other
+words, a choice of further computational process: if-else, switch and select. The syntax of the first operator is as follows:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nx">condition</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// executable code provided condition == true</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">//executable code provided condition == false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For a single comparison, curly braces can be omitted. The opening
+bracket stays on the same line as the condition:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// if the conditionis correct</span>
+<span class="k">if</span><span class="w"> </span><span class="nx">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;Apple&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">//what is done is what is in brackets:</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;enter your login and password &quot;</span><span class="p">)</span>
+<span class="c1">//if the condition is not met, then you can immediately check</span>
+<span class="c1">//another condition. You can do this any number of times </span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">ID</span><span class="w"> </span><span class="o">==</span><span class="s">&quot;Google&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// get the second answer</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Your operating system is not supported &quot;</span><span class="p">)</span>
+<span class="c1">// do what belongs to the last if</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Input error&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>b). Switch statement</p>
+<p>The switch expression switch provides a simple way to access different parts of the program based on the value of the expression. Syntax of switch statement:</p>
+<p>switch optstatement; optexpression{
+case expression1: Statement..
+case expression2: Statement..
+…
+default: Statement..
+}</p>
+<p>After the first variant found, the operator performs the necessary
+actions and stops work.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>switch ID {
+// first value is checked
+case \&quot;Apple\&quot;:
+fmt.Println(\&quot;Enter your username and password \&quot;)
+// second value is checked
+case \&quot;Google\&quot;:
+fmt.Println(\&quot;second value is checked \&quot;)
+// if nothing was found
+default:
+fmt.Println(\&quot;Input error \&quot;)
+}
+</pre></div>
+</div>
+<p>c). Select statement</p>
+<p>The select statement allows you to select one of several expressions to execute. The main difference between select and switch is that select works on a standby basis. This means that the select command will not run until the message associated with sending and receiving on any channel is executed. It should be noted that the visual algorithmic language DRAKON in the implementation of the editor Drakon Web Editor uses a similar operator Select, which will be discussed in the next section.</p>
+</div>
+<div class="section" id="loops">
+<h2>2.6 Loops<a class="headerlink" href="#loops" title="Permalink to this heading">#</a></h2>
+<p>The Golang language adopts only one loop format - <em>for</em>, which has the following variants.</p>
+<p>a). The classical, C-like cycle with variable, condition and cycle step:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">loop</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>b). Preconditioned loop</p>
+<p>The simplest loop is to declare only the condition, and place the rest inside the loop:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>package main
+import (
+  &quot;fmt&quot;
+)  
+func main() {
+// loop variable
+var count = 10
+// as long as the variable is greater than 0 --- the loop runs
+for count \&gt; 0 {
+// output the current value of the variable
+fmt.Println(count)
+// output the current value of the variable
+count = count - 1
+}
+</pre></div>
+</div>
+<p>c) Loop within range</p>
+<p>There is another for loop variation that iterates the range of values for the data type. The range keyword is used in a cycle to iterate the elements of an array, slice or map. When using an array and a slice, the loop returns an index of the element as an integer. When using cards, it returns the key-value of the following pair:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>package main
+import \&quot;fmt\&quot;
+func main() {
+nums := \[\]int{2, 3, 4}
+sum := 0
+for \_, num := range nums {
+sum += num
+}
+fmt.Println(\&quot;sum:\&quot;, sum)
+for i, num := range nums {
+if num == 3 {
+fmt.Println(\&quot;index:\&quot;, i)
+}
+}
+kvs := map\[string\]string{\&quot;ca\&quot;: \&quot;Paris\&quot;, \&quot;co\&quot;: \&quot;France\&quot;}
+for k, v := range kvs {
+fmt.Printf(\&quot;%s -\&gt; %s\\n\&quot;, k, v)
+}
+for k := range kvs {
+fmt.Println(\&quot;key:\&quot;, k)
+}
+}
+</pre></div>
+</div>
+<p>The following table provides a complete list of Golang keywords:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="w">     </span><span class="mi">1</span><span class="w">       </span><span class="p">!</span><span class="w">    </span><span class="mi">2</span><span class="w">   </span><span class="p">!</span><span class="w">    </span><span class="mi">3</span><span class="w">    </span><span class="p">!</span><span class="w">      </span><span class="mi">4</span><span class="w">      </span><span class="p">!</span><span class="w">    </span><span class="mi">5</span><span class="w">   </span>
+<span class="w">  </span><span class="o">-----------</span><span class="p">!</span><span class="o">--------</span><span class="p">!</span><span class="o">---------</span><span class="p">!</span><span class="o">-------------</span><span class="p">!</span><span class="o">--------</span><span class="w">  </span>
+<span class="w">  </span><span class="k">break</span><span class="w">      </span><span class="p">!</span><span class="w">  </span><span class="k">case</span><span class="w">  </span><span class="p">!</span><span class="w">  </span><span class="kd">chan</span><span class="w">   </span><span class="p">!</span><span class="w">    </span><span class="kd">const</span><span class="w">    </span><span class="p">!</span><span class="w"> </span><span class="k">continue</span>
+
+<span class="w">  </span><span class="k">default</span><span class="w">    </span><span class="p">!</span><span class="w"> </span><span class="k">defer</span><span class="w">  </span><span class="p">!</span><span class="w">  </span><span class="k">else</span><span class="w">   </span><span class="p">!</span><span class="w"> </span><span class="k">fallthrough</span><span class="w"> </span><span class="p">!</span><span class="w">  </span><span class="k">for</span><span class="w"> </span>
+
+<span class="w">  </span><span class="kd">func</span><span class="w">        </span><span class="p">!</span><span class="w">   </span><span class="k">go</span><span class="w">  </span><span class="p">!</span><span class="w">  </span><span class="k">goto</span><span class="w">   </span><span class="p">!</span><span class="w">     </span><span class="k">if</span><span class="w">      </span><span class="p">!</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span>
+
+<span class="w">  </span><span class="kd">interface</span><span class="w">   </span><span class="p">!</span><span class="w">   </span><span class="kd">map</span><span class="w"> </span><span class="p">!</span><span class="w"> </span><span class="kn">package</span><span class="w"> </span><span class="p">!</span><span class="w">    </span><span class="k">range</span><span class="w">    </span><span class="p">!</span><span class="w"> </span><span class="k">return</span><span class="w"> </span>
+
+<span class="w">  </span><span class="k">select</span><span class="w">      </span><span class="p">!</span><span class="w"> </span><span class="kd">struct</span><span class="w">   </span><span class="k">switch</span><span class="w"> </span><span class="p">!</span><span class="w">     </span><span class="kd">type</span><span class="w">    </span><span class="p">!</span><span class="w">   </span><span class="kd">var</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-types">
+<h2>2.7. Data types<a class="headerlink" href="#data-types" title="Permalink to this heading">#</a></h2>
+<p>Data types define the types of values that are saved by variables when writing the program. Data types also help identify operations that can be performed using data. The following types of data types are dislocated.</p>
+<ul class="simple">
+<li><p>Fundamental types. This category includes numbers, strings, and
+logical (boolean) values.</p></li>
+<li><p>Aggregate types. This category includes array and structures.</p></li>
+<li><p>Reference types. This category includes <em>pointers, cuts, associative   array (map) and, functions</em>.</p></li>
+<li><p>Embedding types. Go supports user-defined types as <em>aliases</em> or
+<em>structures</em>.</p></li>
+</ul>
+<div class="section" id="basic-types">
+<h3>2.7.1. Basic types<a class="headerlink" href="#basic-types" title="Permalink to this heading">#</a></h3>
+<p>а). Integer and real types of variables and constants</p>
+<p>Integer Go types are divided into whole with a sign and whole without a sign. Integer types with the sign include int, int8, int16, int32, and int64; whole types without the sign include <em>uint, uint8, uint16, uint32, uint64, uintptr</em>. The range of values and amount of occupied memory of integer types are represented in the table. 2.1:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="nx">style</span><span class="p">=</span><span class="s">&quot;text-align: write;&quot;</span><span class="p">&gt;</span><span class="nx">Table</span><span class="p">.</span><span class="w"> </span><span class="mf">2.1</span><span class="w"> </span><span class="nx">Integer</span><span class="w"> </span><span class="nx">types</span><span class="p">&lt;</span><span class="o">/</span><span class="nx">p</span><span class="p">&gt;</span>
+<span class="w">  </span><span class="kd">type</span><span class="w"> </span><span class="p">!</span><span class="w">          </span><span class="nx">Range</span><span class="w">                  </span><span class="p">!</span><span class="nx">Occupied</span><span class="w"> </span><span class="nx">computer</span><span class="w"> </span><span class="nx">memory</span><span class="p">!</span>
+<span class="w">  </span><span class="o">-----</span><span class="p">!</span><span class="o">---------------------------------</span><span class="p">!</span><span class="o">------------------------</span><span class="p">!</span>
+<span class="kt">int8</span><span class="w">   </span><span class="p">!</span><span class="w">       </span><span class="mi">128</span><span class="w"> </span><span class="o">---</span><span class="w">  </span><span class="mi">127</span><span class="w">              </span><span class="p">!</span><span class="w">      </span><span class="mi">8</span><span class="w"> </span><span class="nx">bit</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="nx">bytes</span><span class="p">)</span><span class="w">   </span><span class="p">!</span>
+<span class="kt">uint8</span><span class="w">  </span><span class="p">!</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">255</span><span class="w">               </span><span class="p">!</span><span class="w">                        </span><span class="p">!</span>
+<span class="kt">int16</span><span class="w">  </span><span class="p">!</span><span class="w">    </span><span class="mi">32</span><span class="w"> </span><span class="mi">768</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">32</span><span class="w"> </span><span class="mi">767</span><span class="w">            </span><span class="p">!</span><span class="w">     </span><span class="mi">16</span><span class="w"> </span><span class="nx">bit</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="nx">bytes</span><span class="p">)</span><span class="w">   </span><span class="p">!</span>
+<span class="kt">uint16</span><span class="w"> </span><span class="p">!</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">65535</span><span class="w">             </span><span class="p">!</span><span class="w">                        </span><span class="p">!</span>
+<span class="kt">int32</span><span class="w">  </span><span class="p">!</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">147</span><span class="w"> </span><span class="mi">483</span><span class="w"> </span><span class="mi">648</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">147</span><span class="w"> </span><span class="mi">483</span><span class="w"> </span><span class="mi">647</span><span class="w"> </span><span class="p">!</span><span class="w">      </span><span class="nx">bit</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="nx">bytes</span><span class="p">)</span><span class="w">     </span><span class="p">!</span>
+<span class="kt">uint32</span><span class="w"> </span><span class="p">!</span><span class="w">    </span><span class="mi">0</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">294</span><span class="w"> </span><span class="mi">967</span><span class="w"> </span><span class="mi">295</span><span class="w">          </span><span class="p">!</span><span class="w">                        </span><span class="p">!</span>
+<span class="kt">int64</span><span class="w">  </span><span class="p">!</span><span class="w"> </span><span class="o">-</span><span class="mi">9</span><span class="w"> </span><span class="mi">223</span><span class="w"> </span><span class="mi">372</span><span class="w"> </span><span class="mo">036</span><span class="w"> </span><span class="mi">854</span><span class="w"> </span><span class="mi">775</span><span class="w"> </span><span class="mi">808</span><span class="w">      </span><span class="p">!</span><span class="w">    </span><span class="mi">64</span><span class="w"> </span><span class="nx">bit</span><span class="w"> </span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="nx">bytes</span><span class="p">)</span><span class="w">    </span><span class="p">!</span>
+<span class="w">       </span><span class="p">!</span><span class="w">  </span><span class="o">---</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="mi">223</span><span class="w"> </span><span class="mi">372</span><span class="w"> </span><span class="mo">036</span><span class="w"> </span><span class="mi">854</span><span class="w"> </span><span class="mi">775</span><span class="w"> </span><span class="mi">807</span><span class="w">  </span><span class="p">!</span><span class="w">                        </span><span class="p">!</span>
+<span class="kt">uint64</span><span class="w"> </span><span class="p">!</span><span class="mi">0</span><span class="w"> </span><span class="o">---</span><span class="w"> </span><span class="mi">18</span><span class="w"> </span><span class="mi">446</span><span class="w"> </span><span class="mi">744</span><span class="w"> </span><span class="mo">073</span><span class="w"> </span><span class="mi">709</span><span class="w"> </span><span class="mi">551</span><span class="w"> </span><span class="mi">615</span><span class="w"> </span><span class="p">!</span><span class="w">                        </span><span class="p">!</span>
+</pre></div>
+</div>
+<p>The Go language adopts two floating point number formats:.</p>
+<ul class="simple">
+<li><p><em>float32</em> - The largest float32 is the constant <em>math.MaxFloat32</em>, which is about 3.4e38.    The lowest positive value is 1.4e-45/.</p></li>
+<li><p><em>float64</em> - The largest float64 is the constant <em>math.MaxFloat64</em>, which is about 1.8e308. The smallest positive value is 4.9e-324.</p></li>
+</ul>
+<p>Float32 provides about six decimal places of accuracy, while float64 provides about 15 digits. The float64 type is preferable for most problems, because when float32 is used, many iterative algorithms quickly accumulate a roundoff error.</p>
+<p>To determine to which data type the Go compiler assigns a variable, the Printf() function is used, the parameters of which have a special symbol %T:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">а</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">234</span><span class="p">,</span><span class="mi">45</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Type %T for %v\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>b). String variables and constants</p>
+<p>A string is an immutable sequence of bytes. Strings may contain
+arbitrary data, including bytes with the value 0, but usually contain readable text. Text strings are usually interpreted as <em>UTF-8</em>-encoded sequences of code points. The built-in len function returns the number of bytes per string, and the print operator of the <em>%x</em> specification returns one byte of <em>s</em> for the Latin alphabet:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot;Hello, World&quot;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;String &gt;&gt; &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;String lengh= &quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">))</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Hex bytes: &quot;</span><span class="p">)</span>
+<span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot; %x&quot;</span><span class="p">,</span><span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+<span class="nx">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&quot; Hello, World&quot;</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">()</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;String &gt;&gt; &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;String length = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">q</span><span class="p">))</span>
+<span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">q</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot; %x&quot;</span><span class="p">,</span><span class="nx">q</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span>
+<span class="p">}</span>
+<span class="nx">Output</span><span class="p">:</span>
+<span class="nx">String</span><span class="w"> </span><span class="nx">а</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nx">Hello</span><span class="p">,</span><span class="w"> </span><span class="nx">World</span>
+<span class="nx">String</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">12</span>
+<span class="nx">Hex</span><span class="w"> </span><span class="nx">bytes</span><span class="p">:</span>
+<span class="mi">48</span><span class="w"> </span><span class="mi">65</span><span class="w"> </span><span class="mi">6</span><span class="nx">c</span><span class="w"> </span><span class="mi">6</span><span class="nx">c</span><span class="w"> </span><span class="mi">6</span><span class="nx">f</span><span class="w"> </span><span class="mi">2</span><span class="nx">c</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">57</span><span class="w"> </span><span class="mi">6</span><span class="nx">f</span><span class="w"> </span><span class="mi">72</span><span class="w"> </span><span class="mi">6</span><span class="nx">c</span><span class="w"> </span><span class="mi">64</span>
+<span class="nx">String</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nx">Hello</span><span class="p">,</span><span class="w"> </span><span class="nx">World</span>
+<span class="nx">String</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">20</span>
+<span class="nx">d0</span><span class="w"> </span><span class="mi">9</span><span class="nx">f</span><span class="w"> </span><span class="nx">d1</span><span class="w"> </span><span class="mi">80</span><span class="w"> </span><span class="nx">d0</span><span class="w"> </span><span class="nx">b8</span><span class="w"> </span><span class="nx">d0</span><span class="w"> </span><span class="nx">b2</span><span class="w"> </span><span class="nx">d0</span><span class="w"> </span><span class="nx">b5</span><span class="w"> </span><span class="nx">d1</span><span class="w"> </span><span class="mi">82</span><span class="w"> </span><span class="mi">2</span><span class="nx">c</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="nx">d0</span><span class="w"> </span><span class="mi">9</span><span class="nx">c</span><span class="w"> </span><span class="nx">d0</span><span class="w"> </span><span class="nx">b8</span><span class="w"> </span><span class="nx">d1</span><span class="w"> </span><span class="mi">80</span>
+</pre></div>
+</div>
+<p>c) Logical variables and constants</p>
+<p>The logical data type (bool) can be either true (truth) or false
+(falsehood). Boolean operators are used in programming to compare and control data flow:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">5</span>
+<span class="nx">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">8</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x == y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x != y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x &lt; y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x &gt; y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x &lt;= y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;x &gt;= y:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">y</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">Output</span><span class="p">:</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nx">y</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">x</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">y</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">x</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">y</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">y</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="nx">y</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="aggregate-types">
+<h3>2.7.2 Aggregate types<a class="headerlink" href="#aggregate-types" title="Permalink to this heading">#</a></h3>
+<p>а) Array</p>
+<p>An array is a series of fixed-length data that is used to store
+homogeneous elements in memory. Arrays in Go are almost identical to arrays in other programming languages. Array elements are indexed using the [] index with their zero position, which means that the first
+element index is array[0] and the last element index is
+array[len(array)-1], where len(array) is the array length. However,
+due to the fixed length of arrays are not very popular unlike the Slice
+(Cut) design, which is incomparably used in Go. The syntax of the array
+looks like this:</p>
+<p>[N]T{value1, value2, value3, …value n}, где N – numbers of
+elements</p>
+<p>b) Structure</p>
+<p>Structure design is the type of data defined by the developer and serves to represent any real objects. Structures contain a set of fields that represent different attributes of an object. Type and struct keywords are used to define the structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">s_name</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span>
+
+<span class="nx">structures</span><span class="w"> </span><span class="nx">fields</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following is an example of an enterprise employee data
+structure:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span><span class="w"> </span><span class="nx">Employee</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">firstName</span><span class="p">,</span><span class="w"> </span><span class="nx">lastName</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="c1">// string type fields</span>
+<span class="nx">age</span><span class="p">,</span><span class="w"> </span><span class="nx">phone</span><span class="p">,</span><span class="w"> </span><span class="nx">salary</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="c1">// integer type fields</span>
+<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="c1">// structure initialization</span>
+<span class="nx">emp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Employee</span><span class="p">{</span><span class="nx">firstName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Max&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">lastName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Smith&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">age</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
+<span class="nx">phone</span><span class="p">:</span><span class="w"> </span><span class="mi">123456789</span><span class="p">,</span><span class="w"> </span><span class="nx">salary</span><span class="p">:</span><span class="w"> </span><span class="mi">34000</span><span class="p">,</span><span class="w"> </span><span class="nx">address</span><span class="p">:</span><span class="w"> </span><span class="s">&quot; Amarillo &quot;</span><span class="p">}</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;first and last names:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">firstName</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">lastName</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Employee age:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Employee salary:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">salary</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Employee telephone:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">phone</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Employee address:&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">emp</span><span class="p">.</span><span class="nx">address</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The memory for a new struct variable is allocated using the new
+function, which returns a pointer to the allocated memory:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">*</span><span class="nx">T</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">T</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>or in different lines if the structure is declared in the package area:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">w</span><span class="w"> </span><span class="o">*</span><span class="nx">T</span>
+<span class="nx">w</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">T</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When using the short form of assigning a variable value (:=), that is, w:= new(T), the variable z is a pointer to a memory area where the structure fields contain null values according to their types:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">structEmpl</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">name</span><span class="w"> </span><span class="kt">string</span>
+<span class="nx">age</span><span class="w"> </span><span class="kt">int</span>
+<span class="nx">salary</span><span class="w"> </span><span class="kt">float64</span>
+<span class="p">}</span>
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">ms</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">new</span><span class="p">(</span><span class="nx">structEmpl</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span>
+<span class="nx">ms</span><span class="p">.</span><span class="nx">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Fangur&quot;</span>
+<span class="nx">ms</span><span class="p">.</span><span class="nx">age</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">45</span>
+<span class="nx">ms</span><span class="p">.</span><span class="nx">salary</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">1200.5</span>
+<span class="c1">//fmt.Printf(\&quot;Last name: %s\\n\&quot;, ms.name)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Age: %d\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ms</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Printf</span><span class="p">(</span><span class="s">&quot;Salary: %8.1f\n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">ms</span><span class="p">.</span><span class="nx">salary</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">ms</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="refetence-types">
+<h3>2.7.3 Refetence types<a class="headerlink" href="#refetence-types" title="Permalink to this heading">#</a></h3>
+<p>а) Pointer</p>
+<p>Pointers in the Golang programming language are variables that are used to store the memory address of another variable. Variables are used to store some data at a specific memory address in the system. The memory address is always represented in hexadecimal format (starting from 0x, for example, 0xFFAAF, etc.) (Figure 2.2):</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_2_Memory.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_2_Memory.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_2_Memory.jpg" style="width: 300px;" /></a>
+<p style="text-align: center;">Figure 2.2. Variable, pointer, memory</p>
+<p>The pointer is usually called a special type of variable. The main and only operators of the pointers are: the dereferential operator (*) and the address operator (&amp;). The dereferencing operator (*) is used to declare a pointer variable and access the value stored in the address. The address operator (&amp;) is used to return the address of the variable or to access the address of the variable index.
+Pointer declaration syntax:</p>
+<p><em>var pointer name *Data Type</em></p>
+<p>here <em>*Data Type</em> - any valid data type, for example,
+<em>var pos *string</em>.</p>
+<p>To work with the pointer, it must be initialized with the memory address of another variable using the <em>&amp;address</em> statement, as shown in the following example:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">124</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">*</span><span class="kt">int</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">a</span>
+</pre></div>
+</div>
+<p>The uninitialized index will always have a zero value of <em><nil></em>. Here is an example of index initialization and processing:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">z1</span><span class="p">,</span><span class="w"> </span><span class="nx">z2</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">p1</span><span class="p">,</span><span class="w"> </span><span class="nx">p2</span><span class="w"> </span><span class="o">*</span><span class="kt">int</span>
+<span class="nx">p1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">z1</span><span class="w"> </span><span class="c1">// p1 pointer initialized</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Variable value z1 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">z1</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Address z1 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">z1</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Variable value z2 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">z2</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Address z2 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">z2</span><span class="p">)</span>
+<span class="c1">// p2 pointer is uninitialized</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;The value saved in the variable p1 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">p1</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;The value saved in the variable p2 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">p2</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">Output</span><span class="p">:</span>
+<span class="nx">Variable</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">z1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">64</span>
+<span class="nx">Address</span><span class="w"> </span><span class="nx">z1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mh">0xc000086080</span>
+<span class="nx">Variable</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">z2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">128</span>
+<span class="nx">Address</span><span class="w"> </span><span class="nx">z2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mh">0xc000086088</span>
+</pre></div>
+</div>
+<p>The value saved in the variable <em>p1 = 0xc000086080</em>.
+The value saved in the variable <em>p2 = <nil></em>.
+The dereference operator * is used to declare a pointer variable and to access the value stored in the variable to which the pointer points:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>func main() {
+var y = 157
+var p = &amp;y
+fmt.Println(\&quot;Variable value in y = \&quot;, y)
+fmt.Println(\&quot;Variable address y = \&quot;, &amp;y)
+fmt.Println(\&quot;Value saved in p = \&quot;, p)
+fmt.Println(\&quot;Value saved in  y(\*p) = \&quot;, \*p)
+}
+
+Output:
+Variable value in y = 157
+Variable address y = 0xc000014078
+
+Value stored in p = 0xc000014078
+
+Value stored in y(\*p) = 157б)
+</pre></div>
+</div>
+<p>b) Slice</p>
+<p>Slices are sequences of variable length, all of whose elements are of the same type. The slice type “[] T” is written, where the elements are of type T.</p>
+<p>There are three components:</p>
+<p><em>Pointer:</em> The pointer points to an array element that is accessible
+through a cut, which is not necessarily the first element of the array.</p>
+<p><em>Length</em> - the number of slice t elements. It cannot exceed the capacity.</p>
+<p><em>Capacitance</em>: The capacitance is usually the number of elements between the beginning of the slice and the end of the base array representing the change.</p>
+<p>The built-in len and cap functions contain slice length and capacitance values respectively. Multiple slices can share the same base array and can refer to overlapping parts of that array. The first position of the index in the slice is always 0, and the last is the slice length minus one (len- 1). The slice declared in the same way as the array, but it does not contain a slice size. Thus, it can grow or decrease according to some algorithm.</p>
+<p>The syntax of the slice design is as follows:</p>
+<p><em>[]T</em> или <em>[]T{}</em> или <em>[]T{value1, value2, value3, …value n}</em>,</p>
+<p>here <em>T</em> is the element type. For example:</p>
+<p><em>var my_slice [] int</em></p>
+<p>Figure 2.3) shows the visual representation of the cut
+through its components - pointer (ptr), length (len) and capacitance
+(cap):</p>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_3_Slice.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_3_Slice.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_3_Slice.jpg" style="width: 300px;" /></a>
+<p style="text-align: center;">Figure.2.3. Representation of slicing in memory through components</p>
+<p>Slices can be created from existing slices with corresponding indices (Figure 2.4):</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">var</span><span class="w"> </span><span class="nx">sr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">17</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">21</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">62</span><span class="p">,</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w"> </span><span class="mi">78</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">43</span><span class="p">}</span>
+<span class="nx">sr0</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;sr0 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sr0</span><span class="p">)</span>
+<span class="nx">sr1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sr</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;sr1 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sr1</span><span class="p">)</span><span class="w"> </span><span class="c1">// prints \[5 7 9 11 13 15\]</span>
+<span class="nx">sr2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sr1</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;sr2 = &quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sr2</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_4_NewSlice.jpg"><img alt="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_4_NewSlice.jpg" class="align-center" src="C:/Users/ISA_PC/.jupyter/projectBook/drakongo/Engl_images/E_Im2/Fig2_4_NewSlice.jpg" style="width: 400px;" /></a>
+<p style="text-align: center;">Figure 2.4. Create new slice from existing one</p>
+<p>It is important to note that each created slice sr0, sr1, sr2 has its own memory, that is, all created slices have different addresses, even if they are fragments of one slice.:</p>
+<p><em>sr –&gt; 0xc000004078;  sr0 –&gt; 0xc000004090;</em>
+<em>sr1 –&gt; 0xc0000040c0; sr2 –&gt; 0xc0000040f0</em></p>
+</div>
+<div class="section" id="associative-arrays-map">
+<h3>2.7.3. Associative arrays (Map)<a class="headerlink" href="#associative-arrays-map" title="Permalink to this heading">#</a></h3>
+<p>Associative arrays (later cards) are storage containers of the pair
+<em>“key-value”</em>. Maps are one of the most common and useful data
+structures. Unlike data structures such as arrays or cut-offs, maps
+provide quick and efficient searches for elements. The map does not
+allow duplicate keys, but may have duplicate values.</p>
+<p>The announcement syntax of the card with the key type int and the
+value - string:</p>
+<p><em>var names map[int] string</em></p>
+<p>The card can be initialized in two ways:
+using the function <em>make()</em>: <em>var names = make(map[int]string);</em>
+using literal syntax: <em>var films = map[int]string;</em></p>
+<p>Here is an example illustrating both methods of initialization of the map:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">	</span><span class="s">&quot;fmt&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="nx">names</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Cameron&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Spielberg&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Lee&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="s">&quot; Donner&quot;</span><span class="p">}</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">names</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">films</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">)</span>
+<span class="w">	</span><span class="nx">films</span><span class="p">[</span><span class="s">&quot;Cameron&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot; The Abyss&quot;</span>
+<span class="w">	</span><span class="nx">films</span><span class="p">[</span><span class="s">&quot;Spielberg&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot; The Goonies&quot;</span>
+<span class="w">	</span><span class="nx">films</span><span class="p">[</span><span class="s">&quot;Lee&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Jungle Fever&quot;</span>
+<span class="w">	</span><span class="nx">films</span><span class="p">[</span><span class="s">&quot;Donner&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&quot;Superman&quot;</span>
+<span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintln</span><span class="p">(</span><span class="nx">films</span><span class="p">)</span>
+<span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">films</span><span class="w"> </span><span class="p">{</span>
+<span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot; \n&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">Output</span><span class="p">:</span>
+
+<span class="kd">map</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nx">Cameron</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="nx">Spielberg</span><span class="w"> </span><span class="mi">2</span><span class="p">:</span><span class="nx">Lee</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="nx">Donner</span><span class="p">]</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="nx">Cameron</span><span class="w"> </span><span class="p">&gt;</span><span class="w">  </span><span class="nx">The</span><span class="w"> </span><span class="nx">Abyss</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="nx">Spielberg</span><span class="w"> </span><span class="p">&gt;</span><span class="w">  </span><span class="nx">The</span><span class="w"> </span><span class="nx">Goonies</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="nx">Lee</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">Jungle</span><span class="w"> </span><span class="nx">Fever</span>
+<span class="w"> </span>
+<span class="w"> </span><span class="nx">Donner</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">Superman</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="functions-and-methods">
+<h2>2.8. Functions and Methods<a class="headerlink" href="#functions-and-methods" title="Permalink to this heading">#</a></h2>
+<div class="section" id="functions">
+<h3>2.8.1 Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h3>
+<p>A function is a group of operators that share a task. With the help of functions you can repeatedly call its operator block as a unit in other parts of the program. Functions in Go can be assigned to variables, passed as an argument, and can be returned from another function. When declaring a function, you need to specify what type of variables are transferred to the function(s) and what type of data the function returns (return values). In Go, you must specify the data type for each parameter. To declare a function, the keyword func is used. The general structure of the function declaration is shown below:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="nx">name</span><span class="w">  </span><span class="p">(</span><span class="nx">Parameters</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nx">Returned</span><span class="w"> </span><span class="nx">types</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="nx">Function</span><span class="w"> </span><span class="nx">body</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The multiplication function of the two real numbers <em>multiply(x,y)</em> is as follows:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>package main
+import &quot;fmt&quot;
+func multiply(x,y float64) float64 {
+var res
+res = x \* y
+return res // return result
+}
+
+func main() { // function performed
+var x float64 = 15
+var y float64 = 120.6
+var mult float64 // variable for result
+mult = multiply(x,y) // function calculation
+fmt.Print(mult) // outputting
+}
+</pre></div>
+</div>
+<p>The function can return as many values as required:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>func main() {
+var a, b int = 60, 20
+vAdd, vSub := addSub(a, b)
+fmt.Printf(\&quot;a + b = %d\\n\&quot;, vAdd) // prints \&quot;35 + 25 = 60\&quot;
+fmt.Printf(\&quot;a - b = %d\\n\&quot;, vSub) // prints \&quot;35 - 25 = 10\&quot;
+}
+
+func addSub(x, y int) (int, int) { // multiple return values (int, int)
+return x + y, x - y
+}
+</pre></div>
+</div>
+<p>An important feature of functions in Go is the ability to accept
+parameters by value or by reference [].</p>
+</div>
+<div class="section" id="methods">
+<h3>2.8.2 Methods<a class="headerlink" href="#methods" title="Permalink to this heading">#</a></h3>
+<p>Methods together with functions provide different ways of organizing
+program code. A method in Go is a function associated with a particular type that acts on a variable of a certain type called a receiver (recipient). The Golang language does not support the Class concept common in other languages. It is with the method that the object provides its properties, including the behavior of the object. The method must meet the following conditions: it must be of a certain type and must be defined in the same package.</p>
+<p>The method declaration looks like a function declaration, but it has an additional part of the parameter declaration. An optional parameter can contain one and only one parameter of the method recipient type. The recipient parameter should be enclosed in parentheses between the func keyword and the method name.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="nx">Func</span><span class="w"> </span><span class="p">(</span><span class="nx">_Receiver</span><span class="w"> </span><span class="nx">name_</span><span class="w"> </span><span class="nx">Type</span><span class="p">)</span><span class="w"> </span><span class="nx">_Method</span><span class="w"> </span><span class="nx">name_</span><span class="w"> </span><span class="p">(</span><span class="nx">Parameters</span><span class="p">)(</span><span class="nx">Return</span><span class="w"> </span><span class="kd">type</span><span class="p">){</span>
+
+<span class="c1">// Operator block</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In Go, it is allowed to define a method whose receiver has a structure type. This receiver is available inside the method as shown in the following example. The rec receiver structure describing the rect object is declared:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">rect</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+
+<span class="kd">var</span><span class="w"> </span><span class="nx">width</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="w"> </span><span class="kt">int</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Two methods are associated with this structure that determine the
+behavior of the object described by the structure <em>rect</em>:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">rect</span><span class="p">)</span><span class="w"> </span><span class="nx">area</span><span class="p">()</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="k">return</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span>
+
+<span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">r</span><span class="w"> </span><span class="nx">rect</span><span class="p">)</span><span class="w"> </span><span class="nx">perim</span><span class="p">()</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="k">return</span><span class="w"> </span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">r</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="interface-type">
+<h2>2.9. Interface type<a class="headerlink" href="#interface-type" title="Permalink to this heading">#</a></h2>
+<p>Golang is not a classical object-oriented language, that is, it does not support the implementation of the concept of “classes” and “inheritance” in a direct way. However, Go contains a very flexible concept of interfaces that provides many aspects of object-oriented programming.</p>
+<p>Interfaces in Go provide a way to indicate the behavior of an object by a set of methods defined by the interface type. An interface-type variable can store any type of value with a set of methods, which is any superset of the interface. The concept of interface allows to organize different groups of methods applied to objects of different nature. In other words, interfaces are collections of method signatures declaring name, type parameters, and return types of methods in the interface.</p>
+<p>The syntax of the interface is as follows:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">Namer</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Namer -- interface type</span>
+
+<span class="nx">Method1</span><span class="p">(</span><span class="nx">param_list</span><span class="p">)</span><span class="w"> </span><span class="nx">return_type</span>
+<span class="nx">Method2</span><span class="p">(</span><span class="nx">param_list</span><span class="p">)</span><span class="w"> </span><span class="nx">return_type</span>
+</pre></div>
+</div>
+<p>For example, you need to create a method to determine the area of
+geometric shapes - circle and rectangle.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kd">type</span><span class="w"> </span><span class="nx">shape</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">area</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span>
+<span class="nx">perimeter</span><span class="p">()</span><span class="w"> </span><span class="kt">float64</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This code defines the interface for shapes and declares two functions, <em>area()</em> and <em>perimeter()</em> with a return <em>float64</em> type.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span>package main
+import (
+    &quot;fmt&quot; 
+)
+// Interface declarationtype shape interface {
+area() float64
+perimeter() float64
+}
+// Outline declaration \&quot;rectangle\&quot;type rectangle struct{
+length, height float64
+}
+// Declaration of the \&quot;circle structure
+type circle struct{
+radius float64
+}
+// Declaring Methods for a Rectangle
+
+func (r rectangle) area() float64 {
+return r.length \* r.height
+}
+
+func (r rectangle) perimeter() float64 {
+return 2 * ( r.length + r.height)
+}
+
+// Declaration of methods for the circle
+func (c circle) area() float64 {
+return 3.142 * c.radius * c.radius
+}
+func (c circle) perimeter() float64 {
+return 2 * 3.142 * c.radius
+}
+func main() {
+r := rectangle{length: 10.0, height: 5.0}
+c := circle{radius: 5.0}
+fmt.Printf(&quot;Rectangle area - %8.1f\n&quot;, r.area())
+fmt.Printf(&quot;Rectangle perimeter - %8.1f\n&quot;, r.perimeter())
+fmt.Printf(&quot;&quot; - %8.1f\n&quot;, c.area())
+fmt.Printf(&quot;Circumference - %8.1f\n&quot;, c.perimeter())
+}
+
+Output:
+
+Rectangle Area - 50.0
+Rectangle Parimeter - 30.0
+Circle area - 78.5
+Lap Circummetre - 31
+</pre></div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<p>It should be noted once again that this section provides basic
+information on the programming language Golang, sufficient to understand the material set out later. Outside the section such information as Go-subroutines and channels, parallelism and shared variables, packages and tools go, reflection, etc. Next, in the relevant sections will explain in more detail the tools and constructions, as set out in this section. In addition, the recursion tool will be explained in detail because of its special value for iterative processes in data structure processing algorithms.</p>
+<p>In addition, it should be noted that in this book, which implements the concept of hybrid programming, linear constructions of the Go language are used as filling icons of the visual algorithmic language DRAKON. Other designs, in particular, cycles in the range or operator Select is different from Go-designs. Moreover, some DRAKON language designs are converted into other designs during the automatic generation of code. In particular, the software implementation of the Select statement is converted into a composite if-else choice operator. This is due to the desire of the authors of the DRAKON language to make the generated code
+more efficient, increasing its speed and saving computer memory.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Engl_md_prime"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-go-programming-language">2.1. What is the Go Programming Language?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#program-structure-in-go">2.2. Program structure in Go</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-and-constants">2.3. Variables and constants</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-and-output">2.4. Input and output</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#golang-decision-making">2.5. Golang decision making</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loops">2.6 Loops</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-types">2.7. Data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-types">2.7.1. Basic types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregate-types">2.7.2 Aggregate types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refetence-types">2.7.3 Refetence types</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#associative-arrays-map">2.7.3. Associative arrays (Map)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-and-methods">2.8. Functions and Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">2.8.1 Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methods">2.8.2 Methods</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interface-type">2.9. Interface type</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ivanov S.
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
