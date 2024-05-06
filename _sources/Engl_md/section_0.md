@@ -110,3 +110,24 @@ values and deleting nodes.
 structures -- graphs. Basic concepts of graph theory and their basic
 types are given. Algorithms of representation of graphs, their
 traversal, choice of path between vertices are considered.
+
+
+```css
+<div class="highlight">
+  <style>
+    .highlight pre {
+      width: 50% !important;
+    }
+  </style>
+  
+  <pre><code class="language-go">
+    type LinkedList struct {
+      len     int
+      headNode *Node
+    }
+  </code></pre>
+</div>
+```
+
+
+
