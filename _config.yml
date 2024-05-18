@@ -3,7 +3,7 @@
 
 title: Data Structures and Algorithms. Hybrid approach (DRAKON + GOLANG)
 author: Ivanov S.
-logo: C:\Users\ISA_PC\.jupyter\projectBook\drakongo\logo.png
+logo: <img src="https://raw.githubusercontent.com/ISA-1941/drakongogit/main/Engl_images/E_Im0/logo.jpg" width="200">
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
