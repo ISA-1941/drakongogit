@@ -1,0 +1,69 @@
+*Preface*
+
+When planning a new book, any author sets a specific goal, sometimes
+even several goals. It is well known that dozens of books, textbooks,
+manuals, and even laboratory papers with the same title "Data Structures
+and Algorithms" have been published. They differ only in the originality
+of the structure of the book, the presence of examples and, most
+importantly, the programming language that implements the presented
+algorithms. Among the leaders are C++, Java, JavaScript, Python.
+However, in the last decade, the list of leaders has confidently
+included the Golang (Go) programming language, which in certain aspects
+has a significant advantage, primarily in relation to the high
+efficiency of competitive programming.At the same time, there are much
+fewer works on the topic of "Data Structures and Algorithms" that use
+the Golang programming language compared to the languages presented
+above.
+
+An important point is the designation of the target audience. Most of
+the books on the topic are aimed at a wide audience, primarily students
+of higher educational institutions. In these books, algorithms for
+processing data structures are represented by verbal descriptions and
+program codes, the understanding of which is a rather laborious thought
+process. Algorithm flowcharts could play a role in this regard, but in
+this case the amount of training material would increase significantly,
+which is unlikely to make it easier to understand sufficiently complex
+algorithms. The situation can be saved by numerous services that reveal
+the content of algorithms with the help of illustrations, but they are
+fragmentary. In other words, it is rare to find a book that would
+combine a verbal description of algorithms in conjunction with their
+software implementation and detailed illustrations. However, this is a
+debatable issue. However, this is a debatable issue.
+
+Overcoming this drawback, the author ventured to propose a different
+approach, called "hybrid", since it combines the methodological
+attractiveness of the schematic (graphic) representation of algorithms
+in the form of original graphic structures that are automatically
+transformed into program code. It is a technology based on the use of a
+visual programming language (DRAKON), which results in a set of DRAKON
+diagrams that are automatically converted into program code, in this
+case in the Golang language. A fragment of the use of this technology is
+shown on the cover of the book. During the writing process of the book,
+the author constantly pondered the question: to what extent is this
+approach more effective than verbal descriptions of algorithms or
+comments on program code instructions. Here, another goal of the book
+can be formulated: to receive feedback from readers, primarily from
+students, in the form of reviews and critical comments. In this regard,
+the author hopes for a discussion of the hybrid approach in presenting
+the material, which is fundamental in teaching computer science – "Data
+Structures and Algorithms." The author also hopes for the understanding
+of readers who have found errors and inaccuracies in the presentation of
+the material, especially in terms of its design. The hope for indulgence
+is due to the following factors: the author is a deep pensioner at the
+age of 83 (eighty-three) years old, he got acquainted with the Golang
+programming language three years ago, as well as with most of the
+algorithms presented in the book. In addition, work on the book
+sometimes took place to the sound of explosions, since the author lives
+in Ukraine. Finally, this is the author's first experience in writing a
+book in English, which can probably be easily detected by native
+speakers. And, of course, the process of working on the material would
+be extremely difficult, if not impossible, without constant recourse to
+Artificial Intelligence services. In any event, the author will be very
+grateful to everyone who shows interest in this work and will be
+infinitely grateful for the reviews that he hopes to read during his
+lifetime
+
+Finally, the author would be even more grateful for a small financial
+encouragement for their work, which would significantly increase
+motivation to continue as a writer. The next stage involves the creation
+of an interactive service based on the fundamentals of algorithmization.
